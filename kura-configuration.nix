@@ -9,6 +9,10 @@
     [ 
       (modulesPath + "/installer/scan/not-detected.nix")
       ./common.nix
+
+      # services to put here
+      # TODO: put these in the flake file to get an overview of what services are running where 
+      ./services/restic-server.nix
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" ];
