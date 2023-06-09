@@ -1,0 +1,16 @@
+let
+  # NOTE: secrets need to be assigned to both users (for agenix command) and systems (for agenix serivce)
+  tom = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGJQREmqaoPzlEQZfnOVZqH7rWkYaUuWmoQ2T5daJ/uU";
+  me = [ tom ];
+
+  kura = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIYir4CQI59VWm2Jxbk2FiIkwIPDhMq6zG0Z6XDLBjqx";
+  servers = [ kura ];
+
+  #backup = [ philadelphia katana util ];
+
+in
+{
+  "wasabi.age".publicKeys = me ++ servers;
+  "restic.age".publicKeys = me ++ servers;
+  "rclone-wasabi.age".publicKeys = me ++ servers;
+}

@@ -9,12 +9,19 @@
 
     deploy-rs.url = "github:serokell/deploy-rs";
     deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
+
+    # secrets, shhhh
+    agenix.url = "github:ryantm/agenix";
+    agenix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, deploy-rs }: {
+  outputs = { self, nixpkgs, deploy-rs, agenix }: {
     nixosConfigurations.kura = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
-      modules = [ ./kura-configuration.nix ];
+      modules = [ 
+        ./kura-configuration.nix
+        agenix.nixosModules.default
+      ];
     };
 
     deploy.nodes.kura = {
@@ -29,6 +36,7 @@
       };
 
       # here we can list additonal service profiles
+      # TODO: learn more about these and use them!
     };
 
     # This is highly advised, and will prevent many possible mistakes
