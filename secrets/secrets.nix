@@ -13,4 +13,5 @@ in
   "wasabi.age".publicKeys = me ++ servers;
   "restic.age".publicKeys = me ++ servers;
   "rclone-wasabi.age".publicKeys = me ++ servers;
+  "digitalocean.age".publicKeys = me ++ servers;
 }

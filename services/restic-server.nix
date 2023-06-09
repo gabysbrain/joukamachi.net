@@ -9,7 +9,7 @@
   services.restic.server = {
     enable = true;
     dataDir = "/backup";
-    #listenAddress = "127.0.0.1:8000";
+    listenAddress = "127.0.0.1:8000";
 
     # FIXME: maybe we want auth?
     extraFlags = [
@@ -18,7 +18,6 @@
 
     prometheus = true;
   };
-  networking.firewall.allowedTCPPorts = [ 8000 ];
 
   # push to s3
   # HACK: get these out of /etc/ and just the store

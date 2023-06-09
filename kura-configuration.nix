@@ -13,6 +13,7 @@
       # services to put here
       # TODO: put these in the flake file to get an overview of what services are running where 
       ./services/restic-server.nix
+      ./services/revproxy.nix
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" ];
@@ -99,7 +100,7 @@
     local = {
       paths = [ "/home-movies" "/music" ];
       #paths = [ "/home" "/home-movies" "/music" "/videos" ];
-      repository = "rest:http://localhost:8000";
+      repository = "rest:https://backup.joukamachi.net";
       passwordFile = config.age.secrets.restic.path;
       extraBackupArgs = [
         "--one-file-system"
