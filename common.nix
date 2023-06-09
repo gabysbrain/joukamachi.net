@@ -22,4 +22,7 @@
       }
     ];
   };
+
+  # needed for nix flake support 
+  nix.settings.experimental-features = ["nix-command" "flakes" ];
 }
