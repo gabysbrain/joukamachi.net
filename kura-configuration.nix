@@ -93,8 +93,32 @@
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
 
-
-  
+  # backup restic data stores
+  age.secrets.restic.file = ./secrets/restic.age;
+  services.restic.backups = {
+    local = {
+      paths = [ "/home-movies" "/music" ];
+      #paths = [ "/home" "/home-movies" "/music" "/videos" ];
+      repository = "rest:http://localhost:8000";
+      passwordFile = config.age.secrets.restic.path;
+      extraBackupArgs = [
+        "--one-file-system"
+      ];
+      pruneOpts = [
+        "--keep-within-daily 7d"
+        "--keep-within-weekly 2m"
+        "--keep-within-monthly 2y"
+        "--keep-within-yearly 20y"
+        "--keep-last 2"
+        "--compression max"
+      ];
+      timerConfig = {
+        OnCalendar = "00:20";
+        RandomizedDelaySec = "2h";
+        Persistent = true;
+      };
+    };
+  };
 
   # Configure keymap in X11
   # services.xserver.layout = "us";
