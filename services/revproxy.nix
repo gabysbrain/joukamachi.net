@@ -11,6 +11,15 @@
     recommendedProxySettings = true;
     recommendedTlsSettings = true;
 
+    virtualHosts."media.joukamachi.net" = {
+      forceSSL = true;
+      enableACME = true;
+      acmeRoot = null;
+      locations."/" = {
+        proxyPass = "http://localhost:8096";
+      };
+    };
+
     virtualHosts."backup.joukamachi.net" = {
       forceSSL = true;
       enableACME = true;

@@ -13,12 +13,13 @@
       # services to put here
       # TODO: put these in the flake file to get an overview of what services are running where 
       ./services/restic-server.nix
+      ./services/jellyfin.nix
       ./services/revproxy.nix
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ "dm-snapshot" ];
-  boot.kernelModules = [ "kvm-amd" ];
+  boot.kernelModules = [ "kvm-amd" "amdgpu" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
@@ -98,7 +99,7 @@
   age.secrets.restic.file = ./secrets/restic.age;
   services.restic.backups = {
     local = {
-      paths = [ "/home-movies" "/music" ];
+      paths = [ "/home-movies" "/music" "/home" ];
       #paths = [ "/home" "/home-movies" "/music" "/videos" ];
       repository = "rest:https://backup.joukamachi.net";
       passwordFile = config.age.secrets.restic.path;
@@ -138,7 +139,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.tom = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "jellyfin" ]; # Enable ‘sudo’ for the user.
   };
 
   # List packages installed in system profile. To search, run:
