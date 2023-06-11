@@ -15,6 +15,7 @@
       ./services/restic-server.nix
       ./services/jellyfin.nix
       ./services/postgres.nix
+      ./services/mysql.nix
       ./services/monitoring.nix
       ./services/revproxy.nix
     ];
