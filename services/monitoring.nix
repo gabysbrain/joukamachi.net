@@ -29,4 +29,7 @@
       }
     ];
   };
+
+  # needed for exporter
+  networking.firewall.allowedTCPPorts = [ 9002 ];
 }
