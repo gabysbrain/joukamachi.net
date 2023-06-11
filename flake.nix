@@ -13,14 +13,19 @@
     # secrets, shhhh
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
+
+    # restic metrics
+    restic-exporter.url = "github:pinpox/restic-exporter";
+    restic-exporter.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, deploy-rs, agenix }: {
+  outputs = { self, nixpkgs, deploy-rs, agenix, restic-exporter }: {
     nixosConfigurations.kura = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [ 
         ./kura-configuration.nix
         agenix.nixosModules.default
+        restic-exporter.nixosModules.default
       ];
     };
 
