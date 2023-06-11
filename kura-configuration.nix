@@ -14,6 +14,7 @@
       # TODO: put these in the flake file to get an overview of what services are running where 
       ./services/restic-server.nix
       ./services/jellyfin.nix
+      ./services/postgres.nix
       ./services/monitoring.nix
       ./services/revproxy.nix
     ];
