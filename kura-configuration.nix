@@ -16,6 +16,7 @@
       ./services/jellyfin.nix
       ./services/postgres.nix
       ./services/mysql.nix
+      ./services/gitea.nix
       ./services/monitoring.nix
       ./services/revproxy.nix
     ];

@@ -43,6 +43,16 @@
 
   };
 
+  services.nginx.virtualHosts."code.joukamachi.net" = {
+    enableACME = true;
+    forceSSL = true;
+    acmeRoot = null;
+    locations."/" = {
+      proxyPass = "http://localhost:3001/";
+    };
+  };
+
+
   age.secrets.digitalocean.file = ../secrets/digitalocean.age;
   security.acme = {
     acceptTerms = true;

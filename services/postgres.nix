@@ -4,6 +4,7 @@
   services.postgresql = {
     enable = true;
     package = pkgs.postgresql_15;
+    enableTCPIP = true;
     dataDir = "/db/postgres";
   };
 
