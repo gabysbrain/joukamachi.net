@@ -102,50 +102,10 @@
   # backup restic data stores
   age.secrets.restic.file = ./secrets/restic.age;
   services.restic.backups = {
-    music = {
-      # TODO: move redundant repo spec to general function or something
-      paths = [ "/music" ];
+    local = {
+      paths = [ "/home-movies" "/music" "/home" "/var/lib/gitea" ];
       repository = "rest:https://backup.joukamachi.net";
       passwordFile = config.age.secrets.restic.path;
-      pruneOpts = [
-        "--keep-within-daily 7d"
-        "--keep-within-weekly 2m"
-        "--keep-within-monthly 2y"
-        "--keep-within-yearly 20y"
-        "--compression max"
-      ];
-      timerConfig = {
-        OnCalendar = "00:20";
-        RandomizedDelaySec = "2h";
-        Persistent = true;
-      };
-    };
-    home-movies = {
-      paths = [ "/home-movies" ];
-      repository = "rest:https://backup.joukamachi.net";
-      passwordFile = config.age.secrets.restic.path;
-      pruneOpts = [
-        "--keep-within-daily 7d"
-        "--keep-within-weekly 2m"
-        "--keep-within-monthly 2y"
-        "--keep-within-yearly 20y"
-        "--keep-last 2"
-        "--compression max"
-      ];
-      timerConfig = {
-        OnCalendar = "00:20";
-        RandomizedDelaySec = "2h";
-        Persistent = true;
-      };
-    };
-    homes = {
-      paths = [ "/home" ];
-      #paths = [ "/home" "/home-movies" "/music" "/videos" ];
-      repository = "rest:https://backup.joukamachi.net";
-      passwordFile = config.age.secrets.restic.path;
-      extraBackupArgs = [
-        "--one-file-system"
-      ];
       pruneOpts = [
         "--keep-within-daily 7d"
         "--keep-within-weekly 2m"
