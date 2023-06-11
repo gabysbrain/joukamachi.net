@@ -45,6 +45,7 @@
       # TODO: use bisync one day
       ExecStart = ''
         ${pkgs.rclone}/bin/rclone \
+          -v --stats-log-level NOTICE \
           --config ${config.age.secrets.rclone-config.path} \
           sync /backup wasabi:gabysbrain-restic
       '';
@@ -54,7 +55,7 @@
     wantedBy = [ "timers.target" ];
     partOf = [ "restic-offsite.service" ];
     timerConfig = {
-      OnCalendar = "4:*";
+      OnCalendar = "4:05:00";
       Unit = "restic-offsite.service";
     };
   };
