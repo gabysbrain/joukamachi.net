@@ -32,6 +32,15 @@
       '';
     };
 
+    virtualHosts."monitor.joukamachi.net" = {
+      forceSSL = true;
+      enableACME = true;
+      acmeRoot = null;
+      locations."/" = {
+        proxyPass = "http://localhost:2342";
+      };
+    };
+
   };
 
   age.secrets.digitalocean.file = ../secrets/digitalocean.age;

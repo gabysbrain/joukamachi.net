@@ -14,6 +14,7 @@
       # TODO: put these in the flake file to get an overview of what services are running where 
       ./services/restic-server.nix
       ./services/jellyfin.nix
+      ./services/monitoring.nix
       ./services/revproxy.nix
     ];
 
@@ -98,8 +99,44 @@
   # backup restic data stores
   age.secrets.restic.file = ./secrets/restic.age;
   services.restic.backups = {
-    local = {
-      paths = [ "/home-movies" "/music" "/home" ];
+    music = {
+      # TODO: move redundant repo spec to general function or something
+      paths = [ "/music" ];
+      repository = "rest:https://backup.joukamachi.net";
+      passwordFile = config.age.secrets.restic.path;
+      pruneOpts = [
+        "--keep-within-daily 7d"
+        "--keep-within-weekly 2m"
+        "--keep-within-monthly 2y"
+        "--keep-within-yearly 20y"
+        "--compression max"
+      ];
+      timerConfig = {
+        OnCalendar = "00:20";
+        RandomizedDelaySec = "2h";
+        Persistent = true;
+      };
+    };
+    home-movies = {
+      paths = [ "/home-movies" ];
+      repository = "rest:https://backup.joukamachi.net";
+      passwordFile = config.age.secrets.restic.path;
+      pruneOpts = [
+        "--keep-within-daily 7d"
+        "--keep-within-weekly 2m"
+        "--keep-within-monthly 2y"
+        "--keep-within-yearly 20y"
+        "--keep-last 2"
+        "--compression max"
+      ];
+      timerConfig = {
+        OnCalendar = "00:20";
+        RandomizedDelaySec = "2h";
+        Persistent = true;
+      };
+    };
+    homes = {
+      paths = [ "/home" ];
       #paths = [ "/home" "/home-movies" "/music" "/videos" ];
       repository = "rest:https://backup.joukamachi.net";
       passwordFile = config.age.secrets.restic.path;
@@ -163,11 +200,17 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
-  # restic backup server
-  #services.restic.server = {
-    #enable = true;
-    #dataDir = "/backups";
-  #};
+  # export node status to prometheus
+  services.prometheus.enable = true;
+  services.prometheus = {
+    exporters = {
+      node = {
+        enable = true;
+        enabledCollectors = [ "systemd" ];
+        port = 9002;
+      };
+    };
+  };
   
 #  # file sharing
 #  filesystems."/export/home" = {
