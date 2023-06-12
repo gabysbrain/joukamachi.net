@@ -45,10 +45,10 @@
             target_label = "__address__";
           }
         ];
-        scrape_interval = "1h";
-        scrape_timeout = "19m";
+        scrape_interval = "10m";
+        scrape_timeout = "9m";
         static_configs = [{
-          targets = [ "katana" "mbp" "zenbook" "kura" ];
+          targets = [ "katana" "mbp" "zenbook" "kura" "philadelphia" "util" ];
         }];
       }
 
