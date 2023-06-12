@@ -17,9 +17,12 @@
 
     database.type = "postgres";
 
-    #domain = "code.joukamachi.net";
-    #rootUrl = "https://code.joukamachi.net/";
-    #httpPort = 3001;
+    domain = "code.joukamachi.net";
+    settings.server = {
+      PROTOCOL = "http";
+      HTTP_PORT = 3001;
+      ROOT_URL = "https://code.joukamachi.net/";
+    };
   };
 }
 

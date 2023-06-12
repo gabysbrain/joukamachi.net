@@ -41,14 +41,13 @@
       };
     };
 
-  };
-
-  services.nginx.virtualHosts."code.joukamachi.net" = {
-    enableACME = true;
-    forceSSL = true;
-    acmeRoot = null;
-    locations."/" = {
-      proxyPass = "http://localhost:3001/";
+    virtualHosts."code.joukamachi.net" = {
+      enableACME = true;
+      forceSSL = true;
+      acmeRoot = null;
+      locations."/" = {
+        proxyPass = "http://localhost:3001/";
+      };
     };
   };
 
