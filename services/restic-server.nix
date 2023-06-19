@@ -1,10 +1,5 @@
 { config, services, pkgs, ... }:
 
-#let
-  #rclone-filters = ''
-    #- .cache
-  #'';
-#in
 {
   services.restic.server = {
     enable = true;

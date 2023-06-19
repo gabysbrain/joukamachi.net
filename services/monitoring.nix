@@ -1,29 +1,35 @@
 { config, services, pkgs, ... }:
 
 {
+  imports = [
+    ../pkgs/restic-exporter-service.nix
+  ];
+
   services.grafana = {
     enable = true;
     settings.server.http_addr = "127.0.0.1";
     settings.server.http_port = 2342;
   };
 
-  age.secrets.restic-exporter-env.file = ../secrets/restic-exporter-env.age;
+  age.secrets.restic = {
+    file = ../secrets/restic.age;
+    owner = "restic";
+    group = "restic";
+  };
   services.restic-exporter = {
     enable = true;
+    repoUrl = config.services.restic.server.dataDir;
+    repoPasswordFile = config.age.secrets.restic.path;
 
-    # Optional configuration
-    port = "8567";
-    address = "127.0.0.1";
-    user = "restic-exporter";
-    group = "restic-exporter";
-    environmentFile = config.age.secrets.restic-exporter-env.path;
+    refreshInterval = 3 * 60 * 60; # 3 hours
   };
 
   services.prometheus = {
     enable = true;
 
     scrapeConfigs = [
-      { job_name = "node";
+      { 
+        job_name = "node";
         static_configs = [{
           # list all nodes here
           # FIXME: one day do ${toString config.services.prometheus.exporters.node.port}
@@ -32,28 +38,16 @@
       }
 
       # restic server
-      { job_name = "restic_exporter";
-        metrics_path = "/probe";
-        relabel_configs = [
-          { source_labels = [ "__address__" ];
-            target_label = "__param_target";
-          }
-          { source_labels = [ "__param_target" ];
-            target_label = "target";
-          }
-          { replacement = "localhost:${toString config.services.restic-exporter.port}";
-            target_label = "__address__";
-          }
-        ];
-        scrape_interval = "10m";
-        scrape_timeout = "9m";
+      { 
+        job_name = "restic_exporter";
         static_configs = [{
-          targets = [ "katana" "mbp" "zenbook" "kura" "philadelphia" "util" ];
+          targets = [ "localhost:${toString config.services.restic-exporter.port}" ];
         }];
       }
 
       # restic server
-      { job_name = "restic_rest_server";
+      { 
+        job_name = "restic_rest_server";
         scrape_interval = "5s";
         scheme = "https";
         static_configs = [{

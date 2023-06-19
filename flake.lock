@@ -82,21 +82,6 @@
         "type": "github"
       }
     },
-    "flake-utils": {
-      "locked": {
-        "lastModified": 1652776076,
-        "narHash": "sha256-gzTw/v1vj4dOVbpBSJX4J0DwUR6LIyXo7/SuuTJp1kM=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "04c1b180862888302ddfb2e3ad9eaa63afc60cf8",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -134,33 +119,11 @@
         "type": "github"
       }
     },
-    "restic-exporter": {
-      "inputs": {
-        "flake-utils": "flake-utils",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1656942326,
-        "narHash": "sha256-X/3P1tbBtx9e0EwGHExgAuWH6cn5qyE2/ckV/R4faAE=",
-        "owner": "pinpox",
-        "repo": "restic-exporter",
-        "rev": "c46427d239a16dffbe606519b7e29ab74eaa755c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "pinpox",
-        "repo": "restic-exporter",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "agenix": "agenix",
         "deploy-rs": "deploy-rs",
-        "nixpkgs": "nixpkgs",
-        "restic-exporter": "restic-exporter"
+        "nixpkgs": "nixpkgs"
       }
     },
     "utils": {
