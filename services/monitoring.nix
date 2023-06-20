@@ -54,7 +54,31 @@
           targets = [ "backup.joukamachi.net" ];
         }];
       }
+
+      # SNMP
+      {
+        job_name = "snmp";
+        metrics_path = "/snmp";
+        params = { module = [ "if_mib" ]; };
+        relabel_configs = [
+          { source_labels = ["__address__"];    target_label = "__param_target"; }
+          { source_labels = ["__param_target"]; target_label = "instance"; }
+          { source_labels = []; target_label = "__address__"; replacement = "localhost:9116"; }
+        ];
+        static_configs = [{
+          targets = [ "router.lan" "main-switch.joukamachi.net" "lr-switch.joukamachi.net" ];
+        }];
+      }
     ];
+
+    # extra exporters
+    exporters = {
+      snmp = {
+        enable = true;
+        configuration = null;
+        configurationPath = "${pkgs.prometheus-snmp-exporter.src}/snmp.yml";
+      };
+    };
   };
 
   # needed for exporter
