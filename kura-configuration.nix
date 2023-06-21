@@ -93,26 +93,52 @@
   # Set your time zone.
   time.timeZone = "Europe/Vienna";
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Select internationalisation properties.
-  # i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  #   useXkbConfig = true; # use xkbOptions in tty.
-  # };
-
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
-
+  # FIXME: remove copy/paste
   # backup restic data stores
   age.secrets.restic.file = ./secrets/restic.age;
   services.restic.backups = {
-    local = {
-      paths = [ "/home-movies" "/music" "/home" "/var/lib/gitea" ];
+    home-movies = {
+      paths = [ "/home-movies" ];
+      repository = "rest:https://backup.joukamachi.net";
+      passwordFile = config.age.secrets.restic.path;
+      timerConfig = {
+        OnCalendar = "00:20";
+        RandomizedDelaySec = "2h";
+        Persistent = true;
+      };
+    };
+    music = {
+      paths = [ "/music" ];
+      repository = "rest:https://backup.joukamachi.net";
+      passwordFile = config.age.secrets.restic.path;
+      timerConfig = {
+        OnCalendar = "00:20";
+        RandomizedDelaySec = "2h";
+        Persistent = true;
+      };
+    };
+    homes = {
+      paths = [ "/home" ];
+      repository = "rest:https://backup.joukamachi.net";
+      passwordFile = config.age.secrets.restic.path;
+      timerConfig = {
+        OnCalendar = "00:20";
+        RandomizedDelaySec = "2h";
+        Persistent = true;
+      };
+    };
+    gitea = {
+      paths = [ "/var/lib/gitea" ];
+      repository = "rest:https://backup.joukamachi.net";
+      passwordFile = config.age.secrets.restic.path;
+      timerConfig = {
+        OnCalendar = "00:20";
+        RandomizedDelaySec = "2h";
+        Persistent = true;
+      };
+    };
+    prune = {
+      paths = []; # will just do prune/check
       repository = "rest:https://backup.joukamachi.net";
       passwordFile = config.age.secrets.restic.path;
       pruneOpts = [
@@ -124,26 +150,15 @@
         "--compression max"
       ];
       timerConfig = {
-        OnCalendar = "00:20";
-        RandomizedDelaySec = "2h";
+        OnCalendar = "03:30";
+        RandomizedDelaySec = "10m";
         Persistent = true;
       };
     };
   };
 
-  # Configure keymap in X11
-  # services.xserver.layout = "us";
-  # services.xserver.xkbOptions = "eurosign:e,caps:escape";
-
   # Enable CUPS to print documents.
   # services.printing.enable = true;
-
-  # Enable sound.
-  # sound.enable = true;
-  # hardware.pulseaudio.enable = true;
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.tom = {
