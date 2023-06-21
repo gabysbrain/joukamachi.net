@@ -75,6 +75,15 @@
     device = "/home-movies/tom";
     options = [ "bind" ];
   };
+  fileSystems."/home/cagla/music" = {
+    device = "/music/cagla";
+    options = [ "bind" ];
+  };
+  fileSystems."/home/cagla/home-movies" = {
+    device = "/home-movies/cagla";
+    options = [ "bind" ];
+  };
+
 
   networking.hostName = "kura"; # Define your hostname.
   # Pick only one of the below networking options.
@@ -141,6 +150,12 @@
     isNormalUser = true;
     extraGroups = [ "wheel" "jellyfin" ]; # Enable ‘sudo’ for the user.
   };
+
+  users.users.cagla = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" "jellyfin" ]; # Enable ‘sudo’ for the user.
+  };
+
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
