@@ -42,6 +42,15 @@
          '';
        };
 
+       noCheck = mkOption {
+         type = types.bool;
+         default = false;
+         example = true;
+         description = ''
+           Whether or not to run restic check
+         '';
+       };
+
        user = mkOption {
          default = "restic"; # FIXME: grab name from restic server config
          type = types.str;
@@ -93,6 +102,8 @@
 
          LISTEN_ADDRESS = cfg.address;
          LISTEN_PORT = toString cfg.port;
+
+         NO_CHECK = toString cfg.noCheck;
        };
      };
    };
