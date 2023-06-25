@@ -130,6 +130,23 @@
         Persistent = true;
       };
     };
+    videos = {
+      paths = [ "/videos" ];
+      repository = "rest:https://backup.joukamachi.net";
+      passwordFile = config.age.secrets.restic.path;
+      exclude = [
+        "videos/**/replaceable"
+        "videos/**/drm"
+      ];
+      extraBackupArgs = [
+        # TODO: figure out how to only include /videos/**/keep/* files/dirs
+      ];
+      timerConfig = {
+        OnCalendar = "00:20";
+        RandomizedDelaySec = "2h";
+        Persistent = true;
+      };
+    };
     gitea = {
       paths = [ "/var/lib/gitea" ];
       repository = "rest:https://backup.joukamachi.net";
