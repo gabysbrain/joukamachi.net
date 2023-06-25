@@ -121,6 +121,9 @@
       paths = [ "/home" ];
       repository = "rest:https://backup.joukamachi.net";
       passwordFile = config.age.secrets.restic.path;
+      extraBackupArgs = [
+        "--one-file-system"
+      ];
       timerConfig = {
         OnCalendar = "00:20";
         RandomizedDelaySec = "2h";
