@@ -11,6 +11,7 @@
     openFirewall = true;
 
     extraConfig = ''
+      workgroup = POMPISH
       server string = drive
       netbios name = drive
       security = user
@@ -35,6 +36,16 @@
       };
 
       # TODO: share video dir
+      videos = {
+        path = "/videos";
+        browseable = "yes";
+        "read only" = "no";
+        "guest ok" = "no";
+        "create mask" = "0644";
+        "directory mask" = "0755";
+        "force user" = "jellyfin";
+        "force group" = "jellyfin";
+      };
     };
   };
 
