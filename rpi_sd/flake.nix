@@ -17,6 +17,7 @@
           sdImage.compressImage = false;
         }
         ./base-config.nix
+        ../includes/common.nix
       ];
     };
     images.rpi = nixosConfigurations.rpi.config.system.build.sdImage;
