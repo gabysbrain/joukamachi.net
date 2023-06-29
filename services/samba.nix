@@ -35,7 +35,6 @@
         "guest ok" = "no";
       };
 
-      # TODO: share video dir
       videos = {
         path = "/videos";
         browseable = "yes";
@@ -45,6 +44,16 @@
         "directory mask" = "0755";
         "force user" = "jellyfin";
         "force group" = "jellyfin";
+      };
+
+      # for app data
+      exports = {
+        path = "/exports";
+        browseable = "yes";
+        "ready only" = "no";
+        "guest ok" = "yes";
+        "create mask" = "0644";
+        "directory mask" = "0755";
       };
     };
   };
