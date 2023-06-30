@@ -98,70 +98,14 @@
   # backup restic data stores
   age.secrets.restic.file = ./secrets/restic.age;
   services.restic.backups = {
-    home-movies = {
-      paths = [ "/home-movies" ];
-      repository = "rest:https://backup.joukamachi.net";
-      passwordFile = config.age.secrets.restic.path;
-      timerConfig = {
-        OnCalendar = "00:20";
-        RandomizedDelaySec = "2h";
-        Persistent = true;
-      };
-    };
-    music = {
-      paths = [ "/music" ];
-      repository = "rest:https://backup.joukamachi.net";
-      passwordFile = config.age.secrets.restic.path;
-      timerConfig = {
-        OnCalendar = "00:20";
-        RandomizedDelaySec = "2h";
-        Persistent = true;
-      };
-    };
-    homes = {
-      paths = [ "/home" ];
-      repository = "rest:https://backup.joukamachi.net";
-      passwordFile = config.age.secrets.restic.path;
-      extraBackupArgs = [
-        "--one-file-system"
-      ];
-      timerConfig = {
-        OnCalendar = "00:20";
-        RandomizedDelaySec = "2h";
-        Persistent = true;
-      };
-    };
-    videos = {
-      paths = [ "/videos" ];
+    local = {
+      paths = [ "/home-movies" "/music" "/home" "/videos" "/var/lib/gitea" ];
       repository = "rest:https://backup.joukamachi.net";
       passwordFile = config.age.secrets.restic.path;
       exclude = [
         "videos/**/replaceable"
         "videos/**/drm"
       ];
-      extraBackupArgs = [
-        # TODO: figure out how to only include /videos/**/keep/* files/dirs
-      ];
-      timerConfig = {
-        OnCalendar = "00:20";
-        RandomizedDelaySec = "2h";
-        Persistent = true;
-      };
-    };
-    gitea = {
-      paths = [ "/var/lib/gitea" ];
-      repository = "rest:https://backup.joukamachi.net";
-      passwordFile = config.age.secrets.restic.path;
-      timerConfig = {
-        OnCalendar = "00:20";
-        RandomizedDelaySec = "2h";
-        Persistent = true;
-      };
-    };
-    prune = {
-      paths = []; # will just do prune/check
-      repository = "rest:https://backup.joukamachi.net";
-      passwordFile = config.age.secrets.restic.path;
       pruneOpts = [
         "--keep-within-daily 7d"
         "--keep-within-weekly 2m"
@@ -171,8 +115,8 @@
         "--compression max"
       ];
       timerConfig = {
-        OnCalendar = "03:30";
-        RandomizedDelaySec = "10m";
+        OnCalendar = "00:20";
+        RandomizedDelaySec = "2h";
         Persistent = true;
       };
     };
