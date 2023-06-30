@@ -28,6 +28,8 @@
   # server doesn't compile on raspberry pi
   services.localtimed.enable = false;
 
+  services.openssh.enable = true;
+
   # filesystems for protoprism
   fileSystems."/var/lib/private/photoprism" = {
     device = "//drive.joukamachi.net/exports/photoprism-cagla";
