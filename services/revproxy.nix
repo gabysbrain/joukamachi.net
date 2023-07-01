@@ -10,6 +10,7 @@
     recommendedOptimisation = true;
     recommendedProxySettings = true;
     recommendedTlsSettings = true;
+    clientMaxBodySize = "2g";
 
     virtualHosts."media.joukamachi.net" = {
       forceSSL = true;
@@ -47,6 +48,15 @@
       acmeRoot = null;
       locations."/" = {
         proxyPass = "http://localhost:3001/";
+      };
+    };
+
+    virtualHosts."photos.joukamachi.net" = {
+      enableACME = true;
+      forceSSL = true;
+      acmeRoot = null;
+      locations."/" = {
+        proxyPass = "http://localhost:2283/";
       };
     };
   };

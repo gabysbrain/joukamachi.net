@@ -20,6 +20,7 @@
       ./services/monitoring.nix
       ./services/revproxy.nix
       ./services/samba.nix
+      ./services/photos.nix
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" ];
@@ -128,7 +129,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.tom = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "jellyfin" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "jellyfin" "docker" ]; # Enable ‘sudo’ for the user.
   };
 
   users.users.cagla = {
@@ -170,23 +171,6 @@
     };
   };
   
-#  # file sharing
-#  filesystems."/export/home" = {
-#    device = "/home";
-#    options = [ "bind" ];
-#  };
-#  filesystems."/export/videos" = {
-#    device = "/videos";
-#    options = [ "bind" ];
-#  };
-#  services.nfs.server = {
-#    enable = true;
-#    exports = ''
-#      /export/videos 10.0.0.1/24(rw,nohide,insecure,no_subtree_check)
-#      /export/home 10.0.0.1/24(rw,nohide,insecure,no_subtree_check)
-#    '';
-#  };
-
   # auto gc
   nix.gc = {
     automatic = true;
