@@ -46,12 +46,11 @@
         "force group" = "jellyfin";
       };
 
-      # for app data
-      exports = {
+      appdata = {
         path = "/exports";
         browseable = "yes";
-        "ready only" = "no";
-        "guest ok" = "yes";
+        "read only" = "no";
+        "guest ok" = "no";
         "create mask" = "0644";
         "directory mask" = "0755";
       };

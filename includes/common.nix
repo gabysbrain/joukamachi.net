@@ -23,6 +23,14 @@
     ];
   };
 
+  # user for application filesharing
+  users.extraUsers.appshare = {
+    uid = 2001;
+    isSystemUser = true;
+    group = "appshare";
+  };
+  users.groups.appshare = {};
+
   # needed for nix flake support 
   nix.settings.experimental-features = ["nix-command" "flakes" ];
 }

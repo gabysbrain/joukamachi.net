@@ -15,4 +15,5 @@ in
   "rclone-wasabi.age".publicKeys = me ++ servers;
   "digitalocean.age".publicKeys = me ++ servers;
   "restic-exporter-env.age".publicKeys = me ++ servers;
+  "appshare-smb.age".publicKeys = me ++ servers;
 }
