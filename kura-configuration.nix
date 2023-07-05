@@ -74,7 +74,7 @@
     options = [ "bind" ];
   };
   fileSystems."/home/tom/home-movies" = {
-    device = "/home-movies/tom";
+    device = "/home-movies/library/tom";
     options = [ "bind" ];
   };
   fileSystems."/home/cagla/music" = {
@@ -82,7 +82,7 @@
     options = [ "bind" ];
   };
   fileSystems."/home/cagla/home-movies" = {
-    device = "/home-movies/cagla";
+    device = "/home-movies/library/cagla";
     options = [ "bind" ];
   };
 
