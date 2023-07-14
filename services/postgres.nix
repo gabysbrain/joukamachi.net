@@ -1,4 +1,4 @@
-{ config, services, pkgs, ... }:
+{ lib, config, services, pkgs, ... }:
 
 {
   services.postgresql = {
@@ -6,7 +6,15 @@
     package = pkgs.postgresql_15;
     enableTCPIP = true;
     dataDir = "/db/postgres";
+    authentication = lib.mkForce ''
+      local all all trust
+      host  all all 10.0.0.0/24 md5
+      host  all all 10.88.0.0/16 md5
+      host  all all 172.0.0.0/8 md5
+    '';
   };
+
+  networking.firewall.allowedTCPPorts = [ 5432 ];
 
   services.postgresqlBackup = {
     enable = true;
