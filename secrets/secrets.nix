@@ -17,4 +17,5 @@ in
   "digitalocean.age".publicKeys = me ++ servers;
   "restic-exporter-env.age".publicKeys = me ++ servers;
   "appshare-smb.age".publicKeys = me ++ servers;
+  "immichdb-pw.age".publicKeys = me ++ [ kura ];
 }
