@@ -164,6 +164,12 @@
       };
     };
 
+    systemd.services.podman-immich-server.serviceConfig.Type = lib.mkForce "exec";
+    systemd.services.podman-immich-microservices.serviceConfig.Type = lib.mkForce "exec";
+    systemd.services.podman-immich-machine-learning.serviceConfig.Type = lib.mkForce "exec";
+    systemd.services.podman-immich-web.serviceConfig.Type = lib.mkForce "exec";
+    systemd.services.podman-immich-proxy.serviceConfig.Type = lib.mkForce "exec";
+
     systemd.services.podman-create-pod-immich = {
       serviceConfig.Type = "oneshot";
       wantedBy = [ 
