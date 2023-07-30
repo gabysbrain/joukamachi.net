@@ -88,6 +88,12 @@
   };
 
 
+  # influxdb2 desperately wants to run out of /var/lib/influxdb2
+  fileSystems."/var/lib/influxdb2" = {
+    device = "/db/influxdb";
+    options = [ "bind" ];
+  };
+
   networking.hostName = "kura"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
