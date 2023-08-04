@@ -44,7 +44,7 @@
     deploy.nodes = {
 
       kura = {
-        hostname = "kura.lan";
+        hostname = "kura.joukamachi.net";
 
         # base profile for the system
         profiles.system = {

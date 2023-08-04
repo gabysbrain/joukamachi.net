@@ -33,7 +33,7 @@
         static_configs = [{
           # list all nodes here
           # FIXME: one day do ${toString config.services.prometheus.exporters.node.port}
-          targets = [ "kura.lan:9002" ];
+          targets = [ "kura.joukamachi.net:9002" ];
         }];
       }
 
