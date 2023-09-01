@@ -23,11 +23,23 @@ in
     ];
     extraConfig = {
       inputs = {
+        # these should be set up for every system
         system = {};
+        cpu = {};
         mem = {};
         systemd_units = {};
         swap = {};
+        kernel = {};
+        processes = {};
+        net = {};
+        netstat = {};
+        interrupts = {};
+        linux_sysctl_fs = {};
+        disk = {
+          ignore_fs = [ "tmpfs" "devtmpfs" ];
+        };
         diskio = {};
+        temp = {};
 
         snmp = {
           agents = networkGear;
@@ -45,7 +57,6 @@ in
                 { oid = "IF-MIB::ifDescr"; name = "ifDescr"; is_tag = true; }
               ];
             }
-
 
             # IF-MIB::ifXTable contains newer High Capacity (HC) counters that do not overflow as fast for a few of the ifTable counters
             { oid = "IF-MIB::ifXTable"; name = "interface"; inherit_tags = [ "host" ]; field = [
