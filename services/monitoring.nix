@@ -1,5 +1,7 @@
 { config, services, pkgs, ... }:
 
+let networkGear = [ "10.0.0.1" "10.0.0.2" "10.0.0.3" ];
+in
 {
   imports = [
     ../pkgs/restic-exporter-service.nix
@@ -11,11 +13,103 @@
     settings.server.http_port = 2342;
   };
 
+  # influxdb for timeseries data
+  services.influxdb2 = {
+    enable = true;
+    #dataDir = "/db/influxdb";
+    settings = {
+      http-bind-address = "0.0.0.0:8086";
+    };
+  };
+
+  networking.firewall.allowedTCPPorts = [ 8086 ];
+
+  age.secrets.telegraf_token.file = ../secrets/influxdb_telegraf_token.age;
+  services.telegraf = {
+    enable = true;
+    environmentFiles = [
+      # influx pw
+      config.age.secrets.telegraf_token.path
+    ];
+    extraConfig = {
+      inputs = {
+        # these should be set up for every system
+        system = {};
+        cpu = {};
+        mem = {};
+        systemd_units = {};
+        swap = {};
+        kernel = {};
+        processes = {};
+        net = {};
+        netstat = {};
+        interrupts = {};
+        linux_sysctl_fs = {};
+        disk = {
+          ignore_fs = [ "tmpfs" "devtmpfs" ];
+        };
+        diskio = {};
+        temp = {};
+
+        prometheus = {
+          urls = [
+            "http://localhost:${toString config.services.restic-exporter.port}"
+          ];
+        };
+
+        snmp = {
+          agents = networkGear;
+          version = 2;
+          community = "public";
+
+          field = [
+            { oid =  "SNMPv2-MIB::sysName.0"; name = "host"; is_tag = true; }
+            { oid = "DISMAN-EVENT-MIB::sysUpTimeInstance"; name = "uptime"; }
+          ];
+          table = [
+            # IF-MIB::ifTable contains counters on input and output traffic as well as errors and discards.
+            { oid = "IF-MIB::ifTable"; name = "interface"; inherit_tags = [ "host" ]; field = [
+                # Interface tag - used to identify interface in metrics database
+                { oid = "IF-MIB::ifDescr"; name = "ifDescr"; is_tag = true; }
+              ];
+            }
+
+            # IF-MIB::ifXTable contains newer High Capacity (HC) counters that do not overflow as fast for a few of the ifTable counters
+            { oid = "IF-MIB::ifXTable"; name = "interface"; inherit_tags = [ "host" ]; field = [
+                # Interface tag - used to identify interface in metrics database
+                { oid = "IF-MIB::ifDescr"; name = "ifDescr"; is_tag = true; }
+              ];
+            }
+
+            # EtherLike-MIB::dot3StatsTable contains detailed ethernet-level information about what kind of errors have been logged on an interface (such as FCS error, frame too long, etc)
+            { oid = "EtherLike-MIB::dot3StatsTable"; name = "interface"; inherit_tags = [ "host" ]; field = [
+                # Interface tag - used to identify interface in metrics database
+                { oid = "IF-MIB::ifDescr"; name = "ifDescr"; is_tag = true; }
+              ];
+            }
+          ];
+        };
+      };
+      outputs = {
+        influxdb_v2 = {
+          urls = [ "http://localhost:8086" ];
+          organization = "poodlehouse";
+          bucket = "telegraf";
+          token = "$INFLUX_TOKEN";
+          #urls = [ config.services.influxdb.http.bind-address ];
+        };
+      };
+    };
+  };
+  # need the snmp stuff for snmp translating
+  systemd.services.telegraf.path = [ pkgs.net-snmp ];
+
   age.secrets.restic = {
     file = ../secrets/restic.age;
     owner = "restic";
     group = "restic";
   };
+
   services.restic-exporter = {
     enable = true;
     repoUrl = config.services.restic.server.dataDir;
@@ -23,64 +117,4 @@
 
     refreshInterval = 3 * 60 * 60; # 3 hours
   };
-
-  services.prometheus = {
-    enable = true;
-
-    scrapeConfigs = [
-      { 
-        job_name = "node";
-        static_configs = [{
-          # list all nodes here
-          # FIXME: one day do ${toString config.services.prometheus.exporters.node.port}
-          targets = [ "kura.joukamachi.net:9002" ];
-        }];
-      }
-
-      # restic server
-      { 
-        job_name = "restic_exporter";
-        static_configs = [{
-          targets = [ "localhost:${toString config.services.restic-exporter.port}" ];
-        }];
-      }
-
-      # restic server
-      { 
-        job_name = "restic_rest_server";
-        scrape_interval = "5s";
-        scheme = "https";
-        static_configs = [{
-          targets = [ "backup.joukamachi.net" ];
-        }];
-      }
-
-      # SNMP
-      {
-        job_name = "snmp";
-        metrics_path = "/snmp";
-        params = { module = [ "if_mib" ]; };
-        relabel_configs = [
-          { source_labels = ["__address__"];    target_label = "__param_target"; }
-          { source_labels = ["__param_target"]; target_label = "instance"; }
-          { source_labels = []; target_label = "__address__"; replacement = "localhost:9116"; }
-        ];
-        static_configs = [{
-          targets = [ "router.lan" "main-switch.joukamachi.net" "lr-switch.joukamachi.net" ];
-        }];
-      }
-    ];
-
-    # extra exporters
-    exporters = {
-      snmp = {
-        enable = true;
-        configuration = null;
-        configurationPath = "${pkgs.prometheus-snmp-exporter.src}/snmp.yml";
-      };
-    };
-  };
-
-  # needed for exporter
-  networking.firewall.allowedTCPPorts = [ 9002 ];
 }
