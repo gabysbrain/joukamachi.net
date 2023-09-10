@@ -41,6 +41,12 @@ in
         diskio = {};
         temp = {};
 
+        prometheus = {
+          urls = [
+            "http://localhost:${toString config.services.restic-exporter.port}"
+          ];
+        };
+
         snmp = {
           agents = networkGear;
           version = 2;
