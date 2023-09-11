@@ -18,6 +18,7 @@
       ./services/mysql.nix
       ./services/gitea.nix
       ./services/monitoring.nix
+      ./services/loki.nix
       ./services/revproxy.nix
       ./services/samba.nix
       ./services/photos.nix
