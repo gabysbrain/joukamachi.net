@@ -19,6 +19,7 @@
       ./services/gitea.nix
       ./services/monitoring.nix
       ./services/loki.nix
+      ./services/promtail.nix
       ./services/revproxy.nix
       ./services/samba.nix
       ./services/photos.nix
