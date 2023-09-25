@@ -30,7 +30,7 @@
   age.secrets.rclone-config = {
     owner = "restic";
     group = "restic";
-    file = ../secrets/rclone-wasabi.age;
+    file = ../secrets/rclone-backblaze.age;
   };
   systemd.services.restic-offsite = {
     serviceConfig = {
@@ -42,7 +42,7 @@
         ${pkgs.rclone}/bin/rclone \
           -v --stats-log-level NOTICE \
           --config ${config.age.secrets.rclone-config.path} \
-          sync /backup wasabi:gabysbrain-restic
+          sync /backup backblaze:backupmybackup
       '';
     };
   };
