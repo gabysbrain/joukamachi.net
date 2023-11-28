@@ -1,9 +1,11 @@
 { config, services, pkgs, virtualization, ... }:
 
 {
+  users.groups.media = {};
+
   services.radarr = {
     enable = true;
-    group = "jellyfin";
+    group = "media";
   };
 
   services.deluge = {
@@ -13,7 +15,7 @@
       #share_ratio_limit = "0.0";
     };
     web.enable = true;
-    group = "jellyfin";
+    group = "media";
   };
 
 }

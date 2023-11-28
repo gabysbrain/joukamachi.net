@@ -1,7 +1,12 @@
 { config, services, pkgs, ... }:
 
 {
-  services.jellyfin.enable = true;
+  users.groups.media = {};
+
+  services.jellyfin = {
+    enable = true;
+    group = "media";
+  };
 
   # hardware transcoding
   hardware.opengl = {

@@ -138,12 +138,12 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.tom = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "jellyfin" "docker" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "media" "docker" ]; # Enable ‘sudo’ for the user.
   };
 
   users.users.cagla = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "jellyfin" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "media" ]; # Enable ‘sudo’ for the user.
   };
 
 
