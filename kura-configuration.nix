@@ -17,6 +17,7 @@
       ./services/postgres.nix
       ./services/mysql.nix
       ./services/gitea.nix
+      ./services/media.nix
       ./services/monitoring.nix
       ./services/loki.nix
       ./services/promtail.nix
