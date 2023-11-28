@@ -59,6 +59,15 @@
         proxyPass = "http://localhost:2283/";
       };
     };
+
+    virtualHosts."radarr.joukamachi.net" = {
+      enableACME = true;
+      forceSSL = true;
+      acmeRoot = null;
+      locations."/" = {
+        proxyPass = "http://localhost:7878/";
+      };
+    };
   };
 
 
