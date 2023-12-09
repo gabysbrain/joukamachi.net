@@ -2,7 +2,7 @@
  
  let
    cfg = config.services.immich;
-   immichVersion = "v1.87.0";
+   immichVersion = "v1.88.2";
  in
  
  with lib;
@@ -130,11 +130,6 @@
         autoStart = true;
         extraOptions = [ "--pod=immich" ];
       };
-      "immich-web" = {
-        image = "ghcr.io/immich-app/immich-web:${immichVersion}";
-        autoStart = true;
-        extraOptions = [ "--pod=immich" ];
-      };
       "typesense" = {
         image = "typesense/typesense:0.24.1@sha256:9bcff2b829f12074426ca044b56160ca9d777a0c488303469143dd9f8259d4dd";
         environment = {
@@ -151,24 +146,11 @@
         autoStart = true;
         extraOptions = [ "--pod=immich" ];
       };
-      "immich-proxy" = {
-        image = "ghcr.io/immich-app/immich-proxy:${immichVersion}";
-        environment = {
-          IMMICH_WEB_URL = "http://immich-web:3000";
-          IMMICH_SERVER_URL = "http://immich-server:3001";
-          IMMICH_MACHINE_LEARNING_URL = "http://immich-machine-learning:3003";
-        };
-        #dependsOn = [ "immich-server" "immich-web" ];
-        autoStart = true;
-        extraOptions = [ "--pod=immich" ];
-      };
     };
 
     systemd.services.podman-immich-server.serviceConfig.Type = lib.mkForce "exec";
     systemd.services.podman-immich-microservices.serviceConfig.Type = lib.mkForce "exec";
     systemd.services.podman-immich-machine-learning.serviceConfig.Type = lib.mkForce "exec";
-    systemd.services.podman-immich-web.serviceConfig.Type = lib.mkForce "exec";
-    systemd.services.podman-immich-proxy.serviceConfig.Type = lib.mkForce "exec";
 
     systemd.services.podman-create-pod-immich = {
       serviceConfig.Type = "oneshot";
@@ -176,14 +158,12 @@
         "podman-immich-server.service" 
         "podman-immich-microservices.service" 
         "podman-immich-machinelearning.service" 
-        "podman-immich-web.service" 
-        "podman-immich-proxy.service" 
         "podman-typesense.service" 
         "podman-redis.service" 
       ];
 
       script = ''
-        ${pkgs.podman}/bin/podman pod create --name immich --replace -p '${toString cfg.port}:8080'
+        ${pkgs.podman}/bin/podman pod create --name immich --replace -p '${toString cfg.port}:3001'
       '';
     };
   };
