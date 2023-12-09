@@ -17,6 +17,7 @@
   };
 
   services.postgresql = {
+    # FIXME: need to do CREATE EXTENSION cube and CREATE EXTENSION earthdistance on init
     ensureDatabases = [ "immich" ];
     ensureUsers = [ {
       name = "immich";
