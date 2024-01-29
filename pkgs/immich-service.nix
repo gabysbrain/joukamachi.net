@@ -2,7 +2,7 @@
  
  let
    cfg = config.services.immich;
-   immichVersion = "v1.90.2";
+   immichVersion = "v1.91.4";
  in
  
  with lib;
@@ -71,14 +71,6 @@
           name of the database
         '';
       };
-
-      typesenseApiKey = mkOption {
-        type = types.str;
-        default = "changeme";
-        description = ''
-          secret key on the typesense api server
-        '';
-      };
     };
   };
 
@@ -92,7 +84,6 @@
           "/run/agenix:/run/agenix"
         ];
         environment = {
-          TYPESENSE_API_KEY = cfg.typesenseApiKey;
           DB_HOSTNAME = cfg.dbHostname;
           DB_DATABASE_NAME = cfg.dbDatabase;
           DB_USERNAME = cfg.dbUsername;
@@ -100,7 +91,7 @@
           DB_PORT = toString cfg.dbPort;
           REDIS_HOSTNAME = "redis";
         };
-        #dependsOn = [ "redis" "typesense" ];
+        #dependsOn = [ "redis" ];
         autoStart = true;
         extraOptions = [ "--pod=immich" ];
       };
@@ -112,7 +103,6 @@
           "/run/agenix:/run/agenix"
         ];
         environment = {
-          TYPESENSE_API_KEY = cfg.typesenseApiKey;
           DB_HOSTNAME = cfg.dbHostname;
           DB_DATABASE_NAME = cfg.dbDatabase;
           DB_USERNAME = cfg.dbUsername;
@@ -120,24 +110,13 @@
           DB_PORT = toString cfg.dbPort;
           REDIS_HOSTNAME = "redis";
         };
-        #dependsOn = [ "redis" "typesense" ];
+        #dependsOn = [ "redis" ];
         autoStart = true;
         extraOptions = [ "--pod=immich" ];
       };
       "immich-machine-learning" = {
         image = "ghcr.io/immich-app/immich-machine-learning:${immichVersion}";
         volumes = [ "model-cache:/usr/src/app/upload" ];
-        autoStart = true;
-        extraOptions = [ "--pod=immich" ];
-      };
-      "typesense" = {
-        image = "typesense/typesense:0.24.1@sha256:9bcff2b829f12074426ca044b56160ca9d777a0c488303469143dd9f8259d4dd";
-        environment = {
-          TYPESENSE_API_KEY = cfg.typesenseApiKey;
-          TYPESENSE_DATA_DIR = "/data";
-        };
-        log-driver = "none";
-        volumes = [ "tsdata:/data" ];
         autoStart = true;
         extraOptions = [ "--pod=immich" ];
       };
@@ -158,7 +137,6 @@
         "podman-immich-server.service" 
         "podman-immich-microservices.service" 
         "podman-immich-machinelearning.service" 
-        "podman-typesense.service" 
         "podman-redis.service" 
       ];
 
