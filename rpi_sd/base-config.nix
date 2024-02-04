@@ -45,6 +45,15 @@
   # server doesn't compile on raspberry pi
   services.localtimed.enable = false;
 
+  # There's an error with missing sun4i module
+  # https://github.com/NixOS/nixpkgs/issues/126755#issuecomment-869149243
+  nixpkgs.overlays = [
+    (final: super: {
+      makeModulesClosure = x:
+        super.makeModulesClosure (x // { allowMissing = true; });
+    })
+  ];
+
   # WARNING: if you remove this, then you need to assign a password to your user, otherwise
   # `sudo` won't work. You can do that either by using `passwd` after the first rebuild or
   # by setting an hashed password in the `users.users.yourName` block as `initialHashedPassword`.
