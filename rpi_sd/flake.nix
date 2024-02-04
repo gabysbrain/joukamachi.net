@@ -2,25 +2,35 @@
   description = "RPi SD card build image";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+    #nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs }: rec {
-    nixosConfigurations.rpi = nixpkgs.lib.nixosSystem {
-      modules = [
-        "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
-        {
-          nixpkgs.config.allowUnsupportedSystem = true;
-          nixpkgs.hostPlatform.system = "aarch64-linux";
-          nixpkgs.buildPlatform.system = "x86_64-linux"; #If you build on x86 other wise changes this.
+  outputs = { self, nixpkgs, nixos-generators }: rec {
+    nixosModules = {
+      system = {
+        disabledModules = [
+          #"profiles/base.nix"
+        ];
 
-          sdImage.compressImage = false;
-        }
-        ./base-config.nix
-        ../includes/common.nix
-      ];
+        system.stateVersion = "23.11";
+      };
     };
-    images.rpi = nixosConfigurations.rpi.config.system.build.sdImage;
 
+     packages.aarch64-linux = {
+      sdcard = nixos-generators.nixosGenerate {
+        system = "aarch64-linux";
+        format = "sd-aarch64";
+        modules = [
+          self.nixosModules.system
+          ./base-config.nix
+          ../includes/common.nix
+        ];
+      };
+    };
   };
 }

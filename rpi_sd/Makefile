@@ -1,7 +1,7 @@
 
 .PHONY: sd vm
 
-IMG_NAME = .\#images.rpi
+IMG_NAME = .\#packages.aarch64-linux.sdcard
 
 sd:
 	nix build $(IMG_NAME)

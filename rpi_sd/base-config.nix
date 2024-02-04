@@ -3,6 +3,15 @@
 {
   hardware.enableRedistributableFirmware = true;
 
+  boot = {
+    kernelPackages = pkgs.linuxKernel.packages.linux_rpi4;
+    initrd.availableKernelModules = [ "xhci_pci" "usbhid" "usb_storage" ];
+    loader = {
+      grub.enable = false;
+      generic-extlinux-compatible.enable = true;
+    };
+  };
+
   #networking.hostName = "nixpi"; # unleash your creativity!
   networking.hostName = "newrpi";
 
@@ -52,7 +61,4 @@
   # don't install man pages to save space
   documentation.man.enable = false;
   documentation.nixos.enable = false;
-
-  # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  system.stateVersion = "23.05";
 }
