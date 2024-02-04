@@ -70,9 +70,6 @@
       dnsProvider = "digitalocean";
       credentialsFile = config.age.secrets.digitalocean.path;
     };
-    certs = {
-      "backup.joukamachi.net".email = "torsneyt@gmail.com";
-    };
   };
 
 }
