@@ -1,5 +1,28 @@
 {
   "nodes": {
+    "adblock-unbound": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1710134738,
+        "narHash": "sha256-l4CXevrqpvqxsfy3g6e5e+bZ8vprgZzn49VbGin35K0=",
+        "owner": "mirosval",
+        "repo": "unbound-blocklist",
+        "rev": "6699c7959d3c44d5029cfc8318f03c98c7865070",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mirosval",
+        "repo": "unbound-blocklist",
+        "type": "github"
+      }
+    },
     "agenix": {
       "inputs": {
         "darwin": "darwin",
@@ -177,11 +200,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1708566995,
-        "narHash": "sha256-e/THimsoxxMAHSbwMKov5f5Yg+utTj6XVGEo24Lhx+0=",
+        "lastModified": 1710420202,
+        "narHash": "sha256-MvFKESbq4rUWuaf2RKPNYENaSZEw/jaCLo2gU6oREcM=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "3cb4ae6689d2aa3f363516234572613b31212b78",
+        "rev": "878ef7d9721bee9f81f8a80819f9211ad1f993da",
         "type": "github"
       },
       "original": {
@@ -193,6 +216,7 @@
     },
     "root": {
       "inputs": {
+        "adblock-unbound": "adblock-unbound",
         "agenix": "agenix",
         "deploy-rs": "deploy-rs",
         "devshell": "devshell",
