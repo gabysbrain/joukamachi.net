@@ -16,14 +16,22 @@
     # secrets, shhhh
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
+
+    # Adblocking option for unbound DNS server
+    adblock-unbound = {
+      url = "github:mirosval/unbound-blocklist";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
   };
 
-  outputs = { self, devshell, flake-utils, nixpkgs, deploy-rs, agenix }: {
+  outputs = { self, devshell, flake-utils, nixpkgs, deploy-rs, agenix, adblock-unbound, ... }: {
     nixosConfigurations.kura = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [ 
         ./kura-configuration.nix
         agenix.nixosModules.default
+        adblock-unbound.nixosModules.default
       ];
     };
     nixosConfigurations.apple = nixpkgs.lib.nixosSystem {
@@ -41,6 +49,7 @@
         # actual system stuff
         ./apple-configuration.nix
         agenix.nixosModules.default
+        adblock-unbound.nixosModules.default
       ];
     };
 
