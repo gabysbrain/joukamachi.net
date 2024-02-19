@@ -13,6 +13,14 @@
     };
   };
 
+  #fileSystems = {
+    #"/" = {
+      #device = lib.mkForce "none";
+      #fsType = lib.mkForce "tmpfs";
+      #options = lib.mkForce [ "defaults" "size=256M" "mode=755" ];
+    #};
+  #};
+
   #networking.hostName = "nixpi"; # unleash your creativity!
   networking.hostName = "newrpi";
 
