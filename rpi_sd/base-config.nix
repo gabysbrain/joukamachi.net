@@ -2,6 +2,7 @@
 
 {
   hardware.enableRedistributableFirmware = true;
+  sdImage.compressImage = false;
 
   boot = {
     kernelPackages = pkgs.linuxKernel.packages.linux_rpi4;
