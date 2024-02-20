@@ -3,6 +3,7 @@
 {
   imports =
     [ 
+      ./includes/rpi.nix
       ./includes/common.nix
 
       # services to put here
@@ -38,5 +39,5 @@
   documentation.nixos.enable = false;
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  system.stateVersion = "23.05";
+  system.stateVersion = "23.11";
 }
