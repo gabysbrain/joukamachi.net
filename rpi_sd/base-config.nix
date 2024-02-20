@@ -28,6 +28,9 @@
   services.openssh = {
     enable = true;
     settings.PermitRootLogin = "yes";
+    extraConfig = ''
+      IPQos 0x00
+    '';
   };
   
   users.users.nixos = {
