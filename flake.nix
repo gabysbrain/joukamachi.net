@@ -58,17 +58,17 @@
         # TODO: learn more about these and use them!
       };
 
-      #apple = {
-        #hostname = "apple.joukamachi.net";
+      apple = {
+        hostname = "apple.joukamachi.net";
 
-        ## base profile for the system
-        #profiles.system = {
-          #sshUser = "deploy";
-          #sshOpts = [ "-i" "~/keys/id_deploy" ];
-          #user = "root";
-          #path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.apple;
-        #};
-      #};
+        # base profile for the system
+        profiles.system = {
+          sshUser = "deploy";
+          sshOpts = [ "-i" "~/keys/id_deploy" ];
+          user = "root";
+          path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.apple;
+        };
+      };
     };
 
     # This is highly advised, and will prevent many possible mistakes

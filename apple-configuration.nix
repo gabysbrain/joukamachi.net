@@ -3,7 +3,7 @@
 {
   imports =
     [ 
-      ./includes/rpi.nix
+      ./includes/rpi3.nix
       ./includes/common.nix
 
       # services to put here
