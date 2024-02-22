@@ -15,7 +15,7 @@
   #networking.hostName = "nixpi"; # unleash your creativity!
   networking.hostName = "newrpi";
 
-  # auto login as root
+  # allow login as root
   services.openssh = {
     enable = true;
     settings.PermitRootLogin = "yes";
@@ -29,7 +29,7 @@
     extraGroups = [ "wheel" "networkmanager" "video" ];
     initialPassword = "nixos";
   };
-  services.getty.autologinUser = "nixos";
+  #services.getty.autologinUser = "nixos";
 
   users.users.root.initialPassword = "nixos"; # Log in without a password
 
