@@ -23,6 +23,7 @@
       ./services/revproxy.nix
       ./services/samba.nix
       ./services/photos.nix
+      ./services/taskserver.nix
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" ];
