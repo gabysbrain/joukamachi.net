@@ -9,19 +9,19 @@
 let
   versionHashes = {
     "14" = "sha256-8YRC1Cd9i0BGUJwLmUoPVshdD4nN66VV3p48ziy3ZbA=";
-    "15" = "sha256-IVx/LgRnGyvBRYvrrJatd7yboWEoSYSJogLaH5N/wPA=";
+    "15" = "sha256-uPE76ofzAevJMHSjFHYJQWUh5NZotaD9dhaX84uDFiQ=";
     "16" = "sha256-L+57VRFv4rIEjvqExFvU5C9XI7l0zWj9pkKvNE5DP+k=";
   };
   major = lib.versions.major postgresql.version;
 in
   stdenv.mkDerivation rec {
     pname = "pgvecto-rs";
-    version = "0.1.11";
+    version = "0.2.0";
 
     nativeBuildInputs = [dpkg];
 
     src = fetchurl {
-      url = "https://github.com/tensorchord/pgvecto.rs/releases/download/v${version}/vectors-pg${major}-v${version}-x86_64-unknown-linux-gnu.deb";
+      url = "https://github.com/tensorchord/pgvecto.rs/releases/download/v${version}/vectors-pg${major}_${version}_amd64.deb";
       hash = versionHashes."${major}";
     };
 
