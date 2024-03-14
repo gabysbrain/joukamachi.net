@@ -6,6 +6,7 @@
     fqdn = "taskserver.joukamachi.net";
     listenHost = "::";
     organisations.hadleyco.users = [ "tom" ];
+    openFirewall = true;
   };
 }
 
