@@ -4,6 +4,9 @@
   # For accessing `deploy-rs`'s utility Nix functions
 
   inputs = {
+    devshell.url = "github:numtide/devshell";
+    flake-utils.url = "github:numtide/flake-utils";
+
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
     #nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
@@ -15,7 +18,7 @@
     agenix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, deploy-rs, agenix }: {
+  outputs = { self, devshell, flake-utils, nixpkgs, deploy-rs, agenix }: {
     nixosConfigurations.kura = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [ 
@@ -73,5 +76,18 @@
 
     # This is highly advised, and will prevent many possible mistakes
     checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
-  };
+  } //
+  # make numtide/devshell available as a package
+  flake-utils.lib.eachDefaultSystem (system: {
+    devShells.default = 
+      let pkgs = import nixpkgs {
+        inherit system;
+        overlays = [ devshell.overlays.default ];
+      };
+      in
+      pkgs.devshell.mkShell {
+        imports = [ (pkgs.devshell.importTOML ./devshell.toml) ];
+      };
+  });
+
 }
