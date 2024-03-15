@@ -1,4 +1,22 @@
 # https://numtide.github.io/devshell
 [[commands]]
+category = "[deploy]"
 name = "deploy"
 package = "deploy-rs"
+
+[[commands]]
+category = "[deploy]"
+name = "deploy-one"
+#package = "deploy-rs"
+command = """\
+  deploy ".#${1}" \
+  """
+help = "Deploy a single machine (arg is machine name)"
+
+[[commands]]
+category = "[deploy]"
+name = "targets"
+command = """\
+  nix flake show --json --all-systems | jq -r ".nixosConfigurations | keys[]" \
+  """
+help = "get a list of system targets to install"
