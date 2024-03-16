@@ -54,6 +54,8 @@
           sshUser = "deploy";
           sshOpts = [ "-i" "~/keys/id_deploy" ];
           user = "root";
+          autoRollback = false;
+          magicRollback = false;
           path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.kura;
         };
 
