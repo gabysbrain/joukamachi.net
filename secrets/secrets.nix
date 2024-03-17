@@ -11,13 +11,10 @@ let
 
 in
 {
-  "wasabi.age".publicKeys = me ++ servers;
   "restic.age".publicKeys = me ++ servers;
-  "rclone-wasabi.age".publicKeys = me ++ servers;
   "rclone-backblaze.age".publicKeys = me ++ servers;
   "digitalocean.age".publicKeys = me ++ servers;
   "restic-exporter-env.age".publicKeys = me ++ servers;
   "appshare-smb.age".publicKeys = me ++ servers;
   "immichdb-pw.age".publicKeys = me ++ [ kura ];
-  "influxdb_telegraf_token.age".publicKeys = me ++ servers;
 }
