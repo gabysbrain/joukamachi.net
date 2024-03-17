@@ -4,7 +4,7 @@ let
   me = [ tom ];
 
   kura = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIYir4CQI59VWm2Jxbk2FiIkwIPDhMq6zG0Z6XDLBjqx";
-  apple = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP1TJx/wzaItVetBp4HM7hB9DRGSLuk+rJMKHQZafCtq";
+  apple = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBRmE1oaXmEd/7j0MqUOTnzZCOF+iCcwqnWTP0nkwY2a";
   servers = [ kura apple ];
 
   #backup = [ philadelphia katana util ];
