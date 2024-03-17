@@ -9,6 +9,7 @@
     [ 
       (modulesPath + "/installer/scan/not-detected.nix")
       ./includes/deploy.nix
+      ./includes/monitoring.nix
 
       # services to put here
       # TODO: put these in the flake file to get an overview of what services are running where 
@@ -19,7 +20,6 @@
       ./services/gitea.nix
       ./services/monitoring.nix
       ./services/loki.nix
-      ./services/promtail.nix
       ./services/revproxy.nix
       ./services/samba.nix
       ./services/photos.nix

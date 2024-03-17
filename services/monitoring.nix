@@ -24,33 +24,9 @@ in
 
   networking.firewall.allowedTCPPorts = [ 8086 ];
 
-  age.secrets.telegraf_token.file = ../secrets/influxdb_telegraf_token.age;
   services.telegraf = {
-    enable = true;
-    environmentFiles = [
-      # influx pw
-      config.age.secrets.telegraf_token.path
-    ];
     extraConfig = {
       inputs = {
-        # these should be set up for every system
-        system = {};
-        cpu = {};
-        mem = {};
-        systemd_units = {};
-        swap = {};
-        kernel = {};
-        processes = {};
-        net = {};
-        netstat = {};
-        interrupts = {};
-        linux_sysctl_fs = {};
-        disk = {
-          ignore_fs = [ "tmpfs" "devtmpfs" ];
-        };
-        diskio = {};
-        temp = {};
-
         prometheus = {
           urls = [
             "http://localhost:${toString config.services.restic-exporter.port}"
@@ -88,15 +64,6 @@ in
               ];
             }
           ];
-        };
-      };
-      outputs = {
-        influxdb_v2 = {
-          urls = [ "http://localhost:8086" ];
-          organization = "poodlehouse";
-          bucket = "telegraf";
-          token = "$INFLUX_TOKEN";
-          #urls = [ config.services.influxdb.http.bind-address ];
         };
       };
     };

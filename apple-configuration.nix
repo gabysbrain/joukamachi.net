@@ -5,6 +5,7 @@
     [ 
       ./includes/rpi3.nix
       ./includes/deploy.nix
+      ./includes/monitoring.nix
 
       # services to put here
     ];
