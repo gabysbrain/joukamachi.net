@@ -4,7 +4,7 @@
   imports =
     [ 
       ./includes/rpi3.nix
-      ./includes/common.nix
+      ./includes/deploy.nix
 
       # services to put here
     ];

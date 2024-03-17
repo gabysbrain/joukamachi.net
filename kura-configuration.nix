@@ -8,7 +8,7 @@
   imports =
     [ 
       (modulesPath + "/installer/scan/not-detected.nix")
-      ./includes/common.nix
+      ./includes/deploy.nix
 
       # services to put here
       # TODO: put these in the flake file to get an overview of what services are running where 

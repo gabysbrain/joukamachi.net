@@ -28,7 +28,7 @@
         modules = [
           self.nixosModules.system
           ./base-config.nix
-          ../includes/common.nix
+          ../includes/deploy.nix
           ../includes/rpi3.nix
         ];
       };
