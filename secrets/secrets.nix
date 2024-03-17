@@ -19,5 +19,5 @@ in
   "restic-exporter-env.age".publicKeys = me ++ servers;
   "appshare-smb.age".publicKeys = me ++ servers;
   "immichdb-pw.age".publicKeys = me ++ [ kura ];
-  "influxdb_telegraf_token.age".publicKeys = me ++ [ kura ];
+  "influxdb_telegraf_token.age".publicKeys = me ++ servers;
 }
