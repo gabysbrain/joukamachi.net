@@ -14,12 +14,12 @@ in
   };
 
   # influxdb for timeseries data
-  services.influxdb2 = {
+  services.influxdb = {
     enable = true;
-    #dataDir = "/db/influxdb";
-    settings = {
-      http-bind-address = "0.0.0.0:8086";
-    };
+    dataDir = "/db/influxdb";
+    #settings = {
+      #http-bind-address = "0.0.0.0:8088";
+    #};
   };
 
   networking.firewall.allowedTCPPorts = [ 8086 ];
