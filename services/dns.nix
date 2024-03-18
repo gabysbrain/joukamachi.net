@@ -10,6 +10,7 @@ in
 
     services.unbound = {
       enable = true;
+      blocklist.enable = true;
       settings = {
         server = {
           #verbosity = "5";
