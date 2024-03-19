@@ -8,6 +8,7 @@
       ./includes/monitoring.nix
 
       # services to put here
+      ./services/dns.nix
     ];
 
   hardware.enableRedistributableFirmware = true;
