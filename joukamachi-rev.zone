@@ -18,3 +18,4 @@ $TTL 3600
 
 50 IN PTR kura.joukamachi.net.
 51 IN PTR apple.joukamachi.net.
+60 IN PTR cherry.joukamachi.net.

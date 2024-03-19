@@ -25,3 +25,5 @@ photos IN CNAME kura
 taskserver IN CNAME kura
 
 apple IN A 10.0.0.51
+
+cherry IN A 10.0.0.60

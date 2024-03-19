@@ -4,6 +4,9 @@
   services.telegraf = {
     enable = true;
     extraConfig = {
+      agent = {
+        metric_batch_size = 100;
+      };
       inputs = {
         # these should be set up for every system
         system = {};
