@@ -19,19 +19,16 @@ in
           tls-upstream = "yes";
           tls-cert-bundle = "/etc/pki/tls/certs/ca-bundle.crt";
           domain-insecure = [ "joukamachi.net" ];
-          root-hints = "${root-hints}";
           #local-zone = ''"joukamachi.net." static'';
           #local-data = [
             #''"kura.joukamachi.net" IN A 10.0.0.50''
             #''"db.joukamachi.net" IN CNAME kura.joukamachi.net''
           #];
+          root-hints = builtins.toString root-hints;
         };
         forward-zone = [
           {
             name = ".";
-            #forward-addr = [ "10.0.0.1" ];
-            #forward-addr = [ "1.1.1.1" "8.8.8.8" ];
-            #forward-addr = [ "10.0.0.1" "8.8.8.8" ];
             forward-addr = [ "8.8.8.8@853#dns.google" ];
             forward-tls-upstream = "yes";
           }
