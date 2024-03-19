@@ -1,0 +1,20 @@
+$ORIGIN 0.0.10.IN-ADDR.ARPA.
+$TTL 3600
+@ IN SOA joukamachi.net. root.joukamachi.net. (
+  20240319092300 ; serial
+  7200 ; refresh
+  3600  ; retry
+  1209600  ; expire
+  3600 ; minimum
+  )
+
+  IN NS joukamachi.net. ; nameserver
+
+1 IN PTR router.joukamachi.net.
+2 IN PTR main-switch.joukamachi.net.
+3 IN PTR lr-switch.joukamachi.net.
+
+30 IN PTR printer.joukamachi.net
+
+50 IN PTR kura.joukamachi.net.
+51 IN PTR apple.joukamachi.net.
