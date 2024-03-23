@@ -1,49 +1,59 @@
 # from https://github.com/mirosval/unbound-blocklist/tree/main
 { config, lib, pkgs, ... }:
 
-let joukamachi-zone = pkgs.writeText "joukamachi.zone" (builtins.readFile ../joukamachi.zone);
-    joukamachi-rev-zone = pkgs.writeText "joukamachi-rev.zone" (builtins.readFile ../joukamachi-rev.zone);
+let domain = "joukamachi.net";
+    hosts = rec {
+      "router" = "10.0.0.1";
+      "main-switch" = "10.0.0.2";
+      "lr-switch" = "10.0.0.3";
+      "printer" = "10.0.0.30";
+      "kura" = "10.0.0.50";
+      "apple" = "10.0.0.51";
+      "cherry" = "10.0.0.60";
+      "katana" = "10.0.0.90";
+
+      "backup" = hosts.kura;
+      "code" = hosts.kura;
+      "db" = hosts.kura;
+      "media" = hosts.kura;
+      "monitor" = hosts.kura;
+      "photos" = hosts.kura;
+      "taskserver" = hosts.kura;
+
+      "ns" = hosts.apple;
+    };
 in
 {
-  config = {
-    networking.firewall.allowedUDPPorts = [ 53 ];
-    networking.firewall.allowedTCPPorts = [ 53 ];
+  networking.firewall.allowedUDPPorts = [ 53 ];
+  networking.firewall.allowedTCPPorts = [ 53 ];
 
-    services.unbound = {
-      enable = true;
-      blocklist.enable = true;
-      settings = {
-        server = {
-          verbosity = 2;
-          interface = [ "0.0.0.0" ];
-          access-control = [ "127.0.0.0/8 allow" "10.0.0.0/24 allow" ];
-          tls-upstream = "yes";
-          tls-cert-bundle = "/etc/pki/tls/certs/ca-bundle.crt";
-          # my ISP seems to block these root DNS requests
-          #root-hints = "${pkgs.dns-root-data}/root.key";
-          #auto-trust-anchor-file = "/var/lib/unbound/root.key";
-          domain-insecure = [ "joukamachi.net" ];
-          private-domain = [ "joukamachi.net" ];
-          unblock-lan-zones = "yes";
+  services.blocky = {
+    enable = true;
+    settings = {
+      port = 53;
+      upstream.default = [
+        "https://dns.google/dns-query"
+        #"https://dns.google/resolve?"
+      ];
+      bootstrapDns = {
+        upstream = "https://dns.google/dns-query";
+        #upstream = "https://dns.google/resolve?";
+        ips = [ "8.8.8.8" "8.8.4.4" ];
+      };
+      blocking = {
+        blackLists = {
+          ads = ["https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"];
         };
-        auth-zone = [
-          { 
-            name = "joukamachi.net";
-            zonefile = builtins.toString joukamachi-zone;
-          }
-          { 
-
-            name = "0.0.10.IN-ADDR.ARPA";
-            zonefile = builtins.toString joukamachi-rev-zone;
-          }
-        ];
-        forward-zone = [
-          {
-            name = ".";
-            forward-addr = [ "8.8.8.8@853#dns.google" ];
-            forward-tls-upstream = "yes";
-          }
-        ];
+        clientGroupsBlock = {
+          default = [ "ads" ];
+        };
+      };
+      customDNS = {
+        mapping = lib.attrsets.mapAttrs' 
+          (hostname: ip: lib.attrsets.nameValuePair (hostname + "." + domain) ip) 
+          hosts // {
+            "." = "10.0.0.51";
+          };
       };
     };
   };
