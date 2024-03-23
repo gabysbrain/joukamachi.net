@@ -34,6 +34,7 @@ in
         dns = 53;
         http = 5380;
       };
+      log.level = "warn";
       upstreams.groups = {
         default = [
           "https://dns.google/dns-query"
