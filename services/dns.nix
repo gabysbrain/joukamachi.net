@@ -47,6 +47,7 @@ in
         ips = [ "8.8.8.8" "8.8.4.4" ];
       };
       blocking = {
+        loading.downloads.timeout = "1m";
         blackLists = {
           ads = ["https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"];
         };
