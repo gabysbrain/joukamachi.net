@@ -25,12 +25,15 @@ let domain = "joukamachi.net";
 in
 {
   networking.firewall.allowedUDPPorts = [ 53 ];
-  networking.firewall.allowedTCPPorts = [ 53 ];
+  networking.firewall.allowedTCPPorts = [ 53 5380 ];
 
   services.blocky = {
     enable = true;
     settings = {
-      port = 53;
+      ports = {
+        dns = 53;
+        http = 5380;
+      };
       upstream.default = [
         "https://dns.google/dns-query"
         #"https://dns.google/resolve?"
@@ -54,6 +57,24 @@ in
           hosts // {
             "." = "10.0.0.51";
           };
+      };
+      # monitoring (only prometheus is available)
+      prometheus = {
+        enable = true;
+        path = "/metrics";
+      };
+    };
+  };
+
+  # monitoring
+  services.telegraf = {
+    extraConfig = {
+      inputs = {
+        prometheus = {
+          urls = [
+            "http://ns.joukamachi.net:${toString config.services.blocky.settings.ports.http}"
+          ];
+        };
       };
     };
   };
