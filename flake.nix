@@ -84,6 +84,7 @@
           autoRollback = false;
           magicRollback = false;
           path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.kura;
+          fastConnection = true;
         };
 
         # here we can list additonal service profiles
