@@ -22,6 +22,9 @@ let domain = "joukamachi.net";
 
       "ns" = hosts.apple;
     };
+    whitelistDomains = pkgs.writeText "whitelist-domains.txt" ''
+      email-int.babycenter.com
+    '';
 in
 {
   networking.firewall.allowedUDPPorts = [ 53 ];
@@ -50,6 +53,9 @@ in
         loading.downloads.timeout = "1m";
         blackLists = {
           ads = ["https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"];
+        };
+        whiteLists = {
+          ads = [ whitelistDomains ];
         };
         clientGroupsBlock = {
           default = [ "ads" ];
