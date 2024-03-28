@@ -76,6 +76,15 @@
         proxyPass = "http://localhost:2283/";
       };
     };
+
+    virtualHosts."ttw.music.joukamachi.net" = {
+      enableACME = true;
+      forceSSL = true;
+      acmeRoot = null;
+      locations."/" = {
+        proxyPass = "http://localhost:6680/";
+      };
+    };
   };
 
 

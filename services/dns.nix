@@ -20,6 +20,7 @@ let domain = "joukamachi.net";
       "monitor" = hosts.kura;
       "photos" = hosts.kura;
       "taskserver" = hosts.kura;
+      "ttw.music" = hosts.kura;
 
       "ns" = hosts.apple;
       "ns1" = hosts.apple;
