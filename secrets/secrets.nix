@@ -17,4 +17,5 @@ in
   "restic-exporter-env.age".publicKeys = me ++ servers;
   "appshare-smb.age".publicKeys = me ++ servers;
   "immichdb-pw.age".publicKeys = me ++ [ kura ];
+  "mopidy-jellyfin-conf.age".publicKeys = me ++ servers;
 }

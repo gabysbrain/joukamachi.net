@@ -56,6 +56,11 @@
       acmeRoot = null;
       locations."/" = {
         proxyPass = "http://localhost:2342";
+        # needed for websockets
+        extraConfig = ''
+          proxy_set_header Upgrade ''$http_upgrade;
+          proxy_set_header Connection ''$http_connection;
+        '';
       };
     };
 
