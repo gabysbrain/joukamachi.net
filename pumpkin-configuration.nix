@@ -8,12 +8,12 @@
       ./includes/monitoring.nix
 
       # services to put here
-      ./services/snapplayer.nix
+      ./services/dns.nix
     ];
 
   hardware.enableRedistributableFirmware = true;
 
-  networking.hostName = "cherry";
+  networking.hostName = "pumpkin";
 
   networking.useDHCP = true;
   networking.enableIPv6 = false;

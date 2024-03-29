@@ -9,6 +9,7 @@ let domain = "joukamachi.net";
       "printer" = "10.0.0.30";
       "kura" = "10.0.0.50";
       "apple" = "10.0.0.51";
+      "pumpkin" = "10.0.0.52";
       "cherry" = "10.0.0.60";
       "katana" = "10.0.0.90";
 
@@ -18,9 +19,13 @@ let domain = "joukamachi.net";
       "media" = hosts.kura;
       "monitor" = hosts.kura;
       "photos" = hosts.kura;
+      "snapserver" = hosts.kura;
       "taskserver" = hosts.kura;
+      "ttw.music" = hosts.kura;
 
       "ns" = hosts.apple;
+      "ns1" = hosts.apple;
+      "ns2" = hosts.pumpkin;
     };
     whitelistDomains = pkgs.writeText "whitelist-domains.txt" ''
       email-int.babycenter.com
