@@ -12,9 +12,10 @@
     enable = true;
     extensionPackages = [
       pkgs.mopidy-iris
-      pkgs.mopidy-mpd
-      pkgs.mopidy-tidal
       pkgs.mopidy-jellyfin
+      pkgs.mopidy-mpd
+      pkgs.mopidy-somafm
+      pkgs.mopidy-tidal
     ];
     configuration = ''
       [http]
@@ -27,6 +28,11 @@
       [mpd]
       enabled = true
       hostname = 0.0.0.0
+
+      [somafm]
+      encoding = aac
+      quality = highest
+
 
       [audio]
       output = audioresample ! audioconvert ! audio/x-raw,rate=48000,channels=2,format=S16LE ! wavenc ! filesink location=/run/snapserver/pipewire
