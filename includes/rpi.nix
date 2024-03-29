@@ -6,4 +6,8 @@
       IPQos 0x00
     '';
   };
+
+  boot.loader.raspberryPi.firmwareConfig = ''
+    dtparam=audio=on
+  '';
 }
