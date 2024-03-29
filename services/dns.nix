@@ -19,6 +19,7 @@ let domain = "joukamachi.net";
       "media" = hosts.kura;
       "monitor" = hosts.kura;
       "photos" = hosts.kura;
+      "snapserver" = hosts.kura;
       "taskserver" = hosts.kura;
       "ttw.music" = hosts.kura;
 
