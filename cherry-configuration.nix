@@ -8,6 +8,7 @@
       ./includes/monitoring.nix
 
       # services to put here
+      ./services/snapplayer.nix
     ];
 
   hardware.enableRedistributableFirmware = true;
