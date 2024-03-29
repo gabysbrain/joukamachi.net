@@ -70,6 +70,24 @@
         adblock-unbound.nixosModules.default
       ];
     };
+    nixosConfigurations.pumpkin = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [ 
+        # rpi stuff
+        "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+        {
+          nixpkgs.config.allowUnsupportedSystem = true;
+          nixpkgs.hostPlatform.system = "aarch64-linux";
+          nixpkgs.buildPlatform.system = "x86_64-linux"; #If you build on x86 other wise changes this.
+
+          sdImage.compressImage = false;
+        }
+        # actual system stuff
+        ./pumpkin-configuration.nix
+        agenix.nixosModules.default
+        adblock-unbound.nixosModules.default
+      ];
+    };
 
     deploy.nodes = {
 
@@ -113,6 +131,19 @@
           sshOpts = [ "-i" "~/keys/id_deploy" ];
           user = "root";
           path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.cherry;
+          fastConnection = true;
+        };
+      };
+
+      pumpkin = {
+        hostname = "pumpkin.joukamachi.net";
+
+        # base profile for the system
+        profiles.system = {
+          sshUser = "deploy";
+          sshOpts = [ "-i" "~/keys/id_deploy" ];
+          user = "root";
+          path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.pumpkin;
           fastConnection = true;
         };
       };
