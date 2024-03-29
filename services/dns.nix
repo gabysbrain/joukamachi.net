@@ -22,6 +22,8 @@ let domain = "joukamachi.net";
       "taskserver" = hosts.kura;
 
       "ns" = hosts.apple;
+      "ns1" = hosts.apple;
+      "ns2" = hosts.pumpkin;
     };
     whitelistDomains = pkgs.writeText "whitelist-domains.txt" ''
       email-int.babycenter.com
