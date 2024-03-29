@@ -20,8 +20,10 @@
       ./services/gitea.nix
       ./services/monitoring.nix
       ./services/loki.nix
+      ./services/mopidy.nix
       ./services/revproxy.nix
       ./services/samba.nix
+      ./services/snapserver.nix
       ./services/photos.nix
       ./services/taskserver.nix
     ];

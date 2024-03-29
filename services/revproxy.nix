@@ -82,6 +82,20 @@
       };
     };
 
+    virtualHosts."snapserver.joukamachi.net" = {
+      enableACME = true;
+      forceSSL = true;
+      acmeRoot = null;
+      locations."/" = {
+        proxyPass = "http://localhost:1780/";
+        # needed for websockets
+        extraConfig = ''
+          proxy_set_header Upgrade ''$http_upgrade;
+          proxy_set_header Connection ''$http_connection;
+        '';
+      };
+    };
+
     virtualHosts."ttw.music.joukamachi.net" = {
       enableACME = true;
       forceSSL = true;
