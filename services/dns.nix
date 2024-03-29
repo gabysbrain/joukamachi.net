@@ -9,6 +9,7 @@ let domain = "joukamachi.net";
       "printer" = "10.0.0.30";
       "kura" = "10.0.0.50";
       "apple" = "10.0.0.51";
+      "pumpkin" = "10.0.0.52";
       "cherry" = "10.0.0.60";
       "katana" = "10.0.0.90";
 
