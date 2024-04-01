@@ -9,6 +9,7 @@
 
       # services to put here
       ./services/dns.nix
+      ./services/redis.nix
     ];
 
   hardware.enableRedistributableFirmware = true;

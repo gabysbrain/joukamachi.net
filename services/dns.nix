@@ -23,6 +23,8 @@ let domain = "joukamachi.net";
       "taskserver" = hosts.kura;
       "ttw.music" = hosts.kura;
 
+      "redis" = hosts.pumpkin;
+
       "ns" = hosts.apple;
       "ns1" = hosts.apple;
       "ns2" = hosts.pumpkin;
