@@ -11,5 +11,16 @@
       port = 6380;
     };
   };
+
+  services.telegraf = {
+    extraConfig = {
+      inputs = {
+        servers = [ 
+          "tcp://redis.joukamachi.net:6379"
+          "tcp://redis.joukamachi.net:6380"
+        ];
+      };
+    };
+  };
 }
 
