@@ -27,4 +27,8 @@
       ExecStart = "${pkgs.snapcast}/bin/snapclient -s 5 -h snapserver.joukamachi.net --hostID office";
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    snapcast
+  ];
 }
