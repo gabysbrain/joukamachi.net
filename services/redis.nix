@@ -1,24 +1,17 @@
 { config, services, pkgs, ... }:
 
+let servers = [
+  { name = "scratch"; port = 6379; }
+  { name = "immich"; port = 6380; }
+];
+in
 {
-  services.redis.servers = {
-    "scratch" = {
-      enable = true;
-      port = 6379;
-    };
-    "immich" = {
-      enable = true;
-      port = 6380;
-    };
-  };
+  services.redis.servers = builtins.listToAttrs (map (s: { name = s.name; value = { port = s.port; enable = true; openFirewall = true; };}) servers);
 
   services.telegraf = {
     extraConfig = {
       inputs = {
-        servers = [ 
-          "tcp://redis.joukamachi.net:6379"
-          "tcp://redis.joukamachi.net:6380"
-        ];
+        servers = map (s: "tcp://redis.joukamachi.net:" + toString s.port) servers;
       };
     };
   };
