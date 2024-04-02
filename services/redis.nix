@@ -1,12 +1,22 @@
 { config, services, pkgs, ... }:
 
-let servers = [
-  { name = "scratch"; port = 6379; }
-  { name = "immich"; port = 6380; }
-];
+let 
+  redisConfig = s: {
+    name = s.name;
+    value = {
+      port = s.port;
+      enable = true;
+      openFirewall = true;
+      bind = null;
+    };
+  };
+  servers = [
+    { name = "scratch"; port = 6379; }
+    { name = "immich"; port = 6380; }
+  ];
 in
 {
-  services.redis.servers = builtins.listToAttrs (map (s: { name = s.name; value = { port = s.port; enable = true; openFirewall = true; };}) servers);
+  services.redis.servers = builtins.listToAttrs (map redisConfig servers);
 
   services.telegraf = {
     extraConfig = {
