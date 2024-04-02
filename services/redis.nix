@@ -19,6 +19,7 @@ let
   ];
 in
 {
+  services.redis.vmOverCommit = true;
   services.redis.servers = builtins.listToAttrs (map redisConfig servers);
 
   services.telegraf = {
