@@ -89,9 +89,9 @@
           DB_USERNAME = cfg.dbUsername;
           DB_PASSWORD_FILE = cfg.dbPasswordFile;
           DB_PORT = toString cfg.dbPort;
-          REDIS_HOSTNAME = "redis";
+          REDIS_HOSTNAME = "redis.joukamachi.net";
+          REDIS_PORT = "6380";
         };
-        #dependsOn = [ "redis" ];
         autoStart = true;
         extraOptions = [ "--pod=immich" ];
       };
@@ -108,20 +108,15 @@
           DB_USERNAME = cfg.dbUsername;
           DB_PASSWORD_FILE = cfg.dbPasswordFile;
           DB_PORT = toString cfg.dbPort;
-          REDIS_HOSTNAME = "redis";
+          REDIS_HOSTNAME = "redis.joukamachi.net";
+          REDIS_PORT = "6380";
         };
-        #dependsOn = [ "redis" ];
         autoStart = true;
         extraOptions = [ "--pod=immich" ];
       };
       "immich-machine-learning" = {
         image = "ghcr.io/immich-app/immich-machine-learning:${immichVersion}";
         volumes = [ "model-cache:/usr/src/app/upload" ];
-        autoStart = true;
-        extraOptions = [ "--pod=immich" ];
-      };
-      "redis" = {
-        image = "redis:6.2-alpine@sha256:70a7a5b641117670beae0d80658430853896b5ef269ccf00d1827427e3263fa3";
         autoStart = true;
         extraOptions = [ "--pod=immich" ];
       };
@@ -137,7 +132,6 @@
         "podman-immich-server.service" 
         "podman-immich-microservices.service" 
         "podman-immich-machinelearning.service" 
-        "podman-redis.service" 
       ];
 
       script = ''
