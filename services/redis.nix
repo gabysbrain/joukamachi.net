@@ -8,6 +8,9 @@ let
       enable = true;
       openFirewall = true;
       bind = null;
+      settings = {
+        protected-mode = "no";
+      };
     };
   };
   servers = [
