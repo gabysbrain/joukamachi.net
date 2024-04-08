@@ -11,7 +11,7 @@
     #'';
   #};
 
-  services.gitea = {
+  services.forgejo = {
     enable = true;
     stateDir = "/var/lib/gitea";
 
