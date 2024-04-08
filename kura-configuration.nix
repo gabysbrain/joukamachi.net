@@ -17,7 +17,7 @@
       ./services/jellyfin.nix
       ./services/postgres.nix
       ./services/mysql.nix
-      ./services/gitea.nix
+      ./services/code.nix
       ./services/monitoring.nix
       ./services/loki.nix
       ./services/mopidy.nix
