@@ -13,7 +13,7 @@
 
   services.forgejo = {
     enable = true;
-    stateDir = "/var/lib/gitea";
+    stateDir = "/var/lib/forgejo";
 
     database.type = "postgres";
 
