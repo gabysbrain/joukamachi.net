@@ -25,7 +25,9 @@ in
   services.telegraf = {
     extraConfig = {
       inputs = {
-        servers = map (s: "tcp://redis.joukamachi.net:" + toString s.port) servers;
+        redis = {
+          servers = map (s: "tcp://redis.joukamachi.net:" + toString s.port) servers;
+        };
       };
     };
   };
