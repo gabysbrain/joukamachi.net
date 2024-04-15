@@ -65,6 +65,7 @@ in
           ads = [ whitelistDomains ];
         };
         clientGroupsBlock = {
+          "10.0.0.81" = [];
           default = [ "ads" ];
         };
       };
