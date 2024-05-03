@@ -16,6 +16,7 @@ let domain = "joukamachi.net";
       "backup" = hosts.kura;
       "code" = hosts.kura;
       "db" = hosts.kura;
+      "grocy" = hosts.kura;
       "media" = hosts.kura;
       "monitor" = hosts.kura;
       "photos" = hosts.kura;
