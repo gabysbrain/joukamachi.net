@@ -7,7 +7,7 @@
     devshell.url = "github:numtide/devshell";
     flake-utils.url = "github:numtide/flake-utils";
 
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
     #nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     deploy-rs.url = "github:serokell/deploy-rs";
