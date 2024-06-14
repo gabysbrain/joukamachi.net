@@ -95,25 +95,6 @@
         autoStart = true;
         extraOptions = [ "--pod=immich" ];
       };
-      "immich-microservices" = {
-        image = "ghcr.io/immich-app/immich-server:${immichVersion}";
-        cmd = [ "start.sh" "microservices" ];
-        volumes = [ 
-          "${cfg.dataDir}:/usr/src/app/upload" 
-          "/run/agenix:/run/agenix"
-        ];
-        environment = {
-          DB_HOSTNAME = cfg.dbHostname;
-          DB_DATABASE_NAME = cfg.dbDatabase;
-          DB_USERNAME = cfg.dbUsername;
-          DB_PASSWORD_FILE = cfg.dbPasswordFile;
-          DB_PORT = toString cfg.dbPort;
-          REDIS_HOSTNAME = "redis.joukamachi.net";
-          REDIS_PORT = "6380";
-        };
-        autoStart = true;
-        extraOptions = [ "--pod=immich" ];
-      };
       "immich-machine-learning" = {
         image = "ghcr.io/immich-app/immich-machine-learning:${immichVersion}";
         volumes = [ "model-cache:/usr/src/app/upload" ];
@@ -123,14 +104,12 @@
     };
 
     systemd.services.podman-immich-server.serviceConfig.Type = lib.mkForce "exec";
-    systemd.services.podman-immich-microservices.serviceConfig.Type = lib.mkForce "exec";
     systemd.services.podman-immich-machine-learning.serviceConfig.Type = lib.mkForce "exec";
 
     systemd.services.podman-create-pod-immich = {
       serviceConfig.Type = "oneshot";
       wantedBy = [ 
         "podman-immich-server.service" 
-        "podman-immich-microservices.service" 
         "podman-immich-machinelearning.service" 
       ];
 
