@@ -66,7 +66,7 @@
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.forceImportRoot = false;
   boot.zfs.devNodes = "/dev/disk/by-id";
-  boot.zfs.extraPools = [ "backup" "store" ];
+  boot.zfs.extraPools = [ "backup" "store" "db" ];
   networking.hostId = "b17f36e0"; # for zfs
 
   fileSystems."/home" = {
