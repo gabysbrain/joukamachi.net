@@ -102,6 +102,7 @@
   # Monitor zfs
   services.telegraf.extraConfig.inputs.zfs = {
     poolMetrics = true;
+    datasetMetrics = true;
   };
 
   networking.hostName = "kura"; # Define your hostname.
