@@ -52,6 +52,23 @@
         adblock-unbound.nixosModules.default
       ];
     };
+    nixosConfigurations.bananacreme = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [ 
+        # rpi stuff
+        "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+        {
+          nixpkgs.config.allowUnsupportedSystem = true;
+          nixpkgs.hostPlatform.system = "aarch64-linux";
+          nixpkgs.buildPlatform.system = "x86_64-linux"; #If you build on x86 other wise changes this.
+
+          sdImage.compressImage = false;
+        }
+        # actual system stuff
+        ./bananacreme-configuration.nix
+        agenix.nixosModules.default
+      ];
+    };
     nixosConfigurations.cherry = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [ 
@@ -118,6 +135,19 @@
           sshOpts = [ "-i" "~/keys/id_deploy" ];
           user = "root";
           path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.apple;
+          fastConnection = true;
+        };
+      };
+
+      bananacreme = {
+        hostname = "bananacreme.joukamachi.net";
+
+        # base profile for the system
+        profiles.system = {
+          sshUser = "deploy";
+          sshOpts = [ "-i" "~/keys/id_deploy" ];
+          user = "root";
+          path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.bananacreme;
           fastConnection = true;
         };
       };
