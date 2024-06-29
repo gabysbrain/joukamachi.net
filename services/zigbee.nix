@@ -2,6 +2,10 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports = [
+    ../pkgs/zigbee2mqtt.nix
+  ];
+
   services.mosquitto = {
     enable = true;
     persistence = false;
@@ -14,7 +18,21 @@
     ];
   };
 
+  services.z2m = {
+    enable = true;
+    arch = "aarch64";
+    zigbeeController = "/dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_148d7bf450a4ed1198918a582981d5c7-if00-port0";
+    #zigbeeController = "/dev/ttyUSB0";
+    mqttUrl = "mqtt://mqtt.joukamachi.net:1883";
+    settings = {
+      mqtt = {
+        base_topic = "zigbee2mqtt";
+        #server = "mqtt://localhost:1883";
+      };
+    };
+  };
+
   networking.firewall = {
-    allowedTCPPorts = [ 1883 ];
+    allowedTCPPorts = [ config.services.z2m.port 1883 ];
   };
 }
