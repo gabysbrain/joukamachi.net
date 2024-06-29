@@ -27,6 +27,8 @@ let domain = "joukamachi.net";
 
       "redis" = hosts.pumpkin;
 
+      "mqtt" = hosts.bananacreme;
+
       "ns" = hosts.apple;
       "ns1" = hosts.apple;
       "ns2" = hosts.pumpkin;
