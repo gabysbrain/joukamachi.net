@@ -106,75 +106,66 @@
       ];
     };
 
-    deploy.nodes = {
+    deploy = {
+      sshUser = "deploy";
+      sshOpts = [ "-i" "~/keys/id_deploy" ];
+      user = "root";
+      autoRollback = false;
+      magicRollback = false;
 
-      kura = {
-        hostname = "kura.joukamachi.net";
+      nodes = {
 
-        # base profile for the system
-        profiles.system = {
-          sshUser = "deploy";
-          sshOpts = [ "-i" "~/keys/id_deploy" ];
-          user = "root";
-          autoRollback = false;
-          magicRollback = false;
-          path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.kura;
-          fastConnection = true;
+        kura = {
+          hostname = "kura.joukamachi.net";
+
+          # base profile for the system
+          profiles.system = {
+            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.kura;
+            fastConnection = true;
+          };
+
+          # here we can list additonal service profiles
+          # TODO: learn more about these and use them!
         };
 
-        # here we can list additonal service profiles
-        # TODO: learn more about these and use them!
-      };
+        apple = {
+          hostname = "apple.joukamachi.net";
 
-      apple = {
-        hostname = "apple.joukamachi.net";
-
-        # base profile for the system
-        profiles.system = {
-          sshUser = "deploy";
-          sshOpts = [ "-i" "~/keys/id_deploy" ];
-          user = "root";
-          path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.apple;
-          fastConnection = true;
+          # base profile for the system
+          profiles.system = {
+            path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.apple;
+            fastConnection = true;
+          };
         };
-      };
 
-      bananacreme = {
-        hostname = "bananacreme.joukamachi.net";
+        bananacreme = {
+          hostname = "bananacreme.joukamachi.net";
 
-        # base profile for the system
-        profiles.system = {
-          sshUser = "deploy";
-          sshOpts = [ "-i" "~/keys/id_deploy" ];
-          user = "root";
-          path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.bananacreme;
-          fastConnection = true;
+          # base profile for the system
+          profiles.system = {
+            path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.bananacreme;
+            fastConnection = true;
+          };
         };
-      };
 
-      cherry = {
-        hostname = "cherry.joukamachi.net";
+        cherry = {
+          hostname = "cherry.joukamachi.net";
 
-        # base profile for the system
-        profiles.system = {
-          sshUser = "deploy";
-          sshOpts = [ "-i" "~/keys/id_deploy" ];
-          user = "root";
-          path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.cherry;
-          fastConnection = true;
+          # base profile for the system
+          profiles.system = {
+            path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.cherry;
+            fastConnection = true;
+          };
         };
-      };
 
-      pumpkin = {
-        hostname = "pumpkin.joukamachi.net";
+        pumpkin = {
+          hostname = "pumpkin.joukamachi.net";
 
-        # base profile for the system
-        profiles.system = {
-          sshUser = "deploy";
-          sshOpts = [ "-i" "~/keys/id_deploy" ];
-          user = "root";
-          path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.pumpkin;
-          fastConnection = true;
+          # base profile for the system
+          profiles.system = {
+            path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.pumpkin;
+            fastConnection = true;
+          };
         };
       };
     };
