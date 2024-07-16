@@ -21,6 +21,7 @@
   environment.systemPackages = with pkgs; [
     # customize as needed!
     bash zsh vim git
+    podman
     libraspberrypi
     cifs-utils
   ];
