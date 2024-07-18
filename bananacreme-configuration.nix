@@ -10,6 +10,11 @@
       # services to put here
     ];
 
+  fileSystems."/" =
+    { device = "/dev/mmcblk0p2";
+      fsType = "ext4";
+    };
+
   hardware.enableRedistributableFirmware = true;
 
   networking.hostName = "bananacreme";
