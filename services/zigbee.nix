@@ -35,4 +35,19 @@
   networking.firewall = {
     allowedTCPPorts = [ config.services.z2m.port 1883 ];
   };
+
+  # send data to influx
+  services.telegraf = {
+    extraConfig = {
+      inputs = {
+        mqtt_consumer = {
+          servers = [ "tcp://mqtt.joukamachi.net:1883" ];
+          topics = [ "zigbee2mqtt/#" ];
+          data_format = "json";
+          #data_format = "influx";
+          #topic_tag = "";
+        };
+      };
+    };
+  };
 }
