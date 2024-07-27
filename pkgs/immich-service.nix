@@ -78,7 +78,7 @@
     virtualisation.oci-containers.containers = {
       "immich-server" = {
         image = "ghcr.io/immich-app/immich-server:${immichVersion}";
-        cmd = [ "start.sh" "immich" ];
+        #cmd = [ "start.sh" "immich" ];
         volumes = [ 
           "${cfg.dataDir}:/usr/src/app/upload"
           "/run/agenix:/run/agenix"
