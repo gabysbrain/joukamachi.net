@@ -33,6 +33,8 @@ let domain = "joukamachi.net";
     };
     whitelistDomains = pkgs.writeText "whitelist-domains.txt" ''
       email-int.babycenter.com
+      s.youtube.com
+      s2.youtube.com
     '';
 in
 {
