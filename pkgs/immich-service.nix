@@ -2,7 +2,7 @@
  
  let
    cfg = config.services.immich;
-   immichVersion = "v1.111.0";
+   immichVersion = "v1.113.1";
  in
  
  with lib;
