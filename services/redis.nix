@@ -14,7 +14,7 @@ let
     };
   };
   servers = [
-    { name = "scratch"; port = 6379; }
+    #{ name = "scratch"; port = 6379; }
     { name = "immich"; port = 6380; }
   ];
 in
