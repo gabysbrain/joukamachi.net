@@ -2,7 +2,7 @@
  
  let
    cfg = config.services.immich;
-   immichVersion = "v1.117.0";
+   immichVersion = "v1.119.1";
  in
  
  with lib;
@@ -114,7 +114,7 @@
       ];
 
       script = ''
-        ${pkgs.podman}/bin/podman pod create --name immich --replace -p '${toString cfg.port}:3001'
+        ${pkgs.podman}/bin/podman pod create --name immich --replace -p '${toString cfg.port}:2283'
       '';
     };
   };
