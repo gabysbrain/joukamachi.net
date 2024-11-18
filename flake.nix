@@ -38,13 +38,11 @@
       system = "x86_64-linux";
       modules = [ 
         # rpi stuff
-        "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+        #"${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
         {
           nixpkgs.config.allowUnsupportedSystem = true;
           nixpkgs.hostPlatform.system = "aarch64-linux";
           nixpkgs.buildPlatform.system = "x86_64-linux"; #If you build on x86 other wise changes this.
-
-          sdImage.compressImage = false;
         }
         # actual system stuff
         ./apple-configuration.nix
@@ -71,13 +69,11 @@
       system = "x86_64-linux";
       modules = [ 
         # rpi stuff
-        "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+        #"${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
         {
           nixpkgs.config.allowUnsupportedSystem = true;
           nixpkgs.hostPlatform.system = "aarch64-linux";
           nixpkgs.buildPlatform.system = "x86_64-linux"; #If you build on x86 other wise changes this.
-
-          sdImage.compressImage = false;
         }
         # actual system stuff
         ./cherry-configuration.nix
@@ -89,13 +85,11 @@
       system = "x86_64-linux";
       modules = [ 
         # rpi stuff
-        "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+        #"${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
         {
           nixpkgs.config.allowUnsupportedSystem = true;
           nixpkgs.hostPlatform.system = "aarch64-linux";
           nixpkgs.buildPlatform.system = "x86_64-linux"; #If you build on x86 other wise changes this.
-
-          sdImage.compressImage = false;
         }
         # actual system stuff
         ./pumpkin-configuration.nix
