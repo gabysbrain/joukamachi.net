@@ -9,7 +9,7 @@
  
 {
   options = {
-    services.immich = {
+    services.my-immich = {
       enable = mkOption {
         default = false;
         type = with types; bool;

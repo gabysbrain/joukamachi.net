@@ -8,7 +8,7 @@
   #virtualisation.docker.enable = true;
 
   age.secrets.immichdb-pw.file = ../secrets/immichdb-pw.age;
-  services.immich = {
+  services.my-immich = {
     enable = true;
     port = 2283;
     dataDir = "/home-movies/";
