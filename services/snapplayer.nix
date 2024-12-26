@@ -11,7 +11,6 @@
     ## If you want to use JACK applications, uncomment this
     ##jack.enable = true;
   #};
-  sound.enable = true;
   hardware.pulseaudio.enable = true;
 
   systemd.services.snapplayer = {
