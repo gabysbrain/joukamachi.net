@@ -16,7 +16,7 @@ in
     '';
 
     # pgvecto.rs stuff
-    extraPlugins = [ 
+    extensions = [ 
       (pgvecto-rs.override { postgresql = config.services.postgresql.package; }) 
     ];
     settings = { shared_preload_libraries = "vectors"; };
