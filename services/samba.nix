@@ -10,24 +10,24 @@
     enable = true;
     openFirewall = true;
 
-    extraConfig = ''
-      workgroup = POMPISH
-      server string = drive
-      netbios name = drive
-      security = user
-      browseable = yes
-      smb encrypt = required
+    settings = {
+      global = {
+        "workgroup" = "POMPISH";
+        "server string" = "drive";
+        "netbios name" = "drive";
+        "security" = "user";
+        "browseable" = "yes";
+        "smb encrypt" = "required";
 
-      # only allow local network hosts
-      hosts allow = 10.0.0. 127.0.0.1 localhost
-      hosts deny = 0.0.0.0/0
+        # only allow local network hosts
+        "hosts allow" = "10.0.0. 127.0.0.1 localhost";
+        "hosts deny" = "0.0.0.0/0";
 
-      # no guests
-      guest account = nobody
-      map to guest = bad user
-    '';
+        # no guests
+        "guest account" = "nobody";
+        "map to guest" = "bad user";
+      };
 
-    shares = {
       # share home dirs
       homes = {
         browseable = "no";
