@@ -4,7 +4,7 @@
   services.jellyfin.enable = true;
 
   # hardware transcoding
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
       vaapiVdpau
