@@ -3,13 +3,14 @@
 {
   services.openssh = {
     extraConfig = ''
-      IPQos 0x00
+      IPQos throughput
     '';
   };
 
-  boot.loader.raspberryPi.firmwareConfig = ''
-    dtparam=audio=on
-  '';
+  boot.loader.generic-extlinux-compatible.enable = lib.mkDefault true;
+  #boot.loader.raspberryPi.firmwareConfig = ''
+    #dtparam=audio=on
+  #'';
 
   # TODO: move some of these to a general server include file
   networking.useDHCP = true;
