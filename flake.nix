@@ -102,8 +102,8 @@
       sshUser = "deploy";
       sshOpts = [ "-i" "~/keys/id_deploy" ];
       user = "root";
-      autoRollback = false;
-      magicRollback = false;
+      #autoRollback = false;
+      #magicRollback = false;
 
       keepResult = true;
 
