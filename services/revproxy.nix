@@ -78,7 +78,8 @@
       forceSSL = true;
       acmeRoot = null;
       locations."/" = {
-        proxyPass = "http://localhost:2283/";
+        proxyPass = "http://[::1]:${toString config.services.immich.port}";
+        proxyWebsockets = true;
       };
     };
 

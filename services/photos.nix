@@ -1,28 +1,19 @@
 { config, services, pkgs, virtualization, ... }:
 
 {
-  imports = [
-    ../pkgs/immich-service.nix
-  ];
-
-  #virtualisation.docker.enable = true;
-
-  age.secrets.immichdb-pw.file = ../secrets/immichdb-pw.age;
-  services.my-immich = {
+  age.secrets.immich-secrets.file = ../secrets/immich-secrets.age;
+  services.immich = {
     enable = true;
     port = 2283;
-    dataDir = "/home-movies/";
-    dbHostname = "db.joukamachi.net";
-    dbPasswordFile = config.age.secrets.immichdb-pw.path;
+    secretsFile = "${config.age.secrets.immich-secrets.path}";
+    mediaLocation = "/home-movies/";
+    database.host = "db.joukamachi.net";
+    redis.enable = false;
+    redis.host = "redis.joukamachi.net";
+    redis.port = 6380;
   };
 
-  services.postgresql = {
-    # FIXME: need to do CREATE EXTENSION cube and CREATE EXTENSION earthdistance on init
-    # TODO: maybe use ensureDBOwnership for this db
-    ensureDatabases = [ "immich" ];
-    ensureUsers = [ {
-      name = "immich";
-    } ];
-  };
+  # faster video transcoding
+  users.users.immich.extraGroups = [ "video" "render" ];
 }
 
