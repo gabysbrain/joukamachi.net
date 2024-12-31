@@ -10,11 +10,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1721021219,
-        "narHash": "sha256-rDTg01H1dt0sHNWlp8t+UC44fbDG+CVOkS/uc/GpQhA=",
+        "lastModified": 1734931504,
+        "narHash": "sha256-xcmc9cl99ASHYD3frD9uSWgsADfNp4Z2ldy0m3IGNFk=",
         "owner": "mirosval",
         "repo": "unbound-blocklist",
-        "rev": "8a4ab9c39c1d6b74e18c9769bf3e0fa969e4537d",
+        "rev": "50317f833089c4d07c4c33b4852cd73d342c6cd0",
         "type": "github"
       },
       "original": {
@@ -181,16 +181,16 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1731386116,
-        "narHash": "sha256-lKA770aUmjPHdTaJWnP3yQ9OI1TigenUqVC3wweqZuI=",
+        "lastModified": 1735264675,
+        "narHash": "sha256-MgdXpeX2GuJbtlBrH9EdsUeWl/yXEubyvxM1G+yO4Ak=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "689fed12a013f56d4c4d3f612489634267d86529",
+        "rev": "d49da4c08359e3c39c4e27c74ac7ac9b70085966",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
-        "ref": "nixos-24.05",
+        "ref": "nixos-24.11",
         "repo": "nixpkgs",
         "type": "github"
       }
