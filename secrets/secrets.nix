@@ -19,4 +19,5 @@ in
   "immichdb-pw.age".publicKeys = me ++ [ kura ];
   "immich-secrets.age".publicKeys = me ++ [ kura ];
   "mopidy-jellyfin-conf.age".publicKeys = me ++ servers;
+  "atticd-env.age".publicKeys = me ++ servers;
 }
