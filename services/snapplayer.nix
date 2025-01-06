@@ -23,7 +23,7 @@
       #"pipewire.service"
     #];
     serviceConfig = {
-      ExecStart = "${pkgs.snapcast}/bin/snapclient -s 5 -h snapserver.joukamachi.net --hostID office";
+      ExecStart = "${pkgs.snapcast}/bin/snapclient -s 1 -h snapserver.joukamachi.net --hostID office";
     };
   };
 
