@@ -11,7 +11,6 @@
     ## If you want to use JACK applications, uncomment this
     ##jack.enable = true;
   #};
-  sound.enable = true;
   hardware.pulseaudio.enable = true;
 
   systemd.services.snapplayer = {
@@ -24,7 +23,7 @@
       #"pipewire.service"
     #];
     serviceConfig = {
-      ExecStart = "${pkgs.snapcast}/bin/snapclient -s 5 -h snapserver.joukamachi.net --hostID office";
+      ExecStart = "${pkgs.snapcast}/bin/snapclient -s 1 -h snapserver.joukamachi.net --hostID office";
     };
   };
 

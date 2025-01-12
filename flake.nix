@@ -1,13 +1,24 @@
 {
   description = "Home network full of delicious servers";
 
+  nixConfig = {
+    extra-substituters = [
+      "https://cachix.joukamachi.net/prod"
+    ];
+    /*
+    extra-trusted-public-keys = [
+      "prod:CnRQj0nKBCzOyHrbfdTvWUxaT1sBxdTcLvLcZbQnU44="
+    ];
+    */
+  };
+
   # For accessing `deploy-rs`'s utility Nix functions
 
   inputs = {
     devshell.url = "github:numtide/devshell";
     flake-utils.url = "github:numtide/flake-utils";
 
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     #nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     deploy-rs.url = "github:serokell/deploy-rs";
@@ -102,8 +113,8 @@
       sshUser = "deploy";
       sshOpts = [ "-i" "~/keys/id_deploy" ];
       user = "root";
-      autoRollback = false;
-      magicRollback = false;
+      #autoRollback = false;
+      #magicRollback = false;
 
       keepResult = true;
 

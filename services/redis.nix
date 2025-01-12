@@ -10,6 +10,7 @@ let
       bind = null;
       settings = {
         protected-mode = "no";
+        maxmemory = "256mb";
       };
     };
   };
