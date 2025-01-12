@@ -1,6 +1,17 @@
 {
   description = "Home network full of delicious servers";
 
+  nixConfig = {
+    extra-substituters = [
+      "https://cachix.joukamachi.net/prod"
+    ];
+    /*
+    extra-trusted-public-keys = [
+      "prod:CnRQj0nKBCzOyHrbfdTvWUxaT1sBxdTcLvLcZbQnU44="
+    ];
+    */
+  };
+
   # For accessing `deploy-rs`'s utility Nix functions
 
   inputs = {
