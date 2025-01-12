@@ -15,6 +15,7 @@ let domain = "joukamachi.net";
       "katana" = "10.0.0.90";
 
       "backup" = hosts.kura;
+      "cachix" = hosts.kura;
       "code" = hosts.kura;
       "db" = hosts.kura;
       "grocy" = hosts.kura;

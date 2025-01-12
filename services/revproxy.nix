@@ -64,6 +64,15 @@
       };
     };
 
+    virtualHosts."cachix.joukamachi.net" = {
+      enableACME = true;
+      forceSSL = true;
+      acmeRoot = null;
+      locations."/" = {
+        proxyPass = "http://localhost:18080/";
+      };
+    };
+
     virtualHosts."code.joukamachi.net" = {
       enableACME = true;
       forceSSL = true;
