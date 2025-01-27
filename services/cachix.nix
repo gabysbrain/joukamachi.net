@@ -15,7 +15,7 @@
         #type = "local";
       #};
 
-      #database.url = "postgresql://db.joukamachi.net/atticd";
+      database.url = "postgresql://atticd@db.joukamachi.net/atticd";
 
       # Data chunking
       #
@@ -43,7 +43,6 @@
   };
 
   # db config stuff
-  /*
   services.postgresql = {
     ensureDatabases = [ "atticd" ];
     ensureUsers = [ { name="atticd"; } ];
@@ -52,7 +51,6 @@
   systemd.services.postgresql.postStart = lib.mkAfter ''
     $PSQL -tAc 'ALTER DATABASE "atticd" OWNER TO "atticd"'
   '';
-  */
 }
 
 
