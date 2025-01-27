@@ -5,11 +5,9 @@
     extra-substituters = [
       "https://cachix.joukamachi.net/prod"
     ];
-    /*
     extra-trusted-public-keys = [
-      "prod:CnRQj0nKBCzOyHrbfdTvWUxaT1sBxdTcLvLcZbQnU44="
+      "prod:YvdQaSxvCua1bSMOD3JQj7eexVTZhmeHWWY842+T+aM="
     ];
-    */
   };
 
   # For accessing `deploy-rs`'s utility Nix functions
