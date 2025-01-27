@@ -71,6 +71,9 @@
       locations."/" = {
         proxyPass = "http://localhost:18080/";
       };
+      extraConfig = ''
+        client_max_body_size 512M;
+      '';
     };
 
     virtualHosts."code.joukamachi.net" = {
