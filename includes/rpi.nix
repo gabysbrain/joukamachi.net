@@ -8,9 +8,6 @@
   };
 
   boot.loader.generic-extlinux-compatible.enable = lib.mkDefault true;
-  #boot.loader.raspberryPi.firmwareConfig = ''
-    #dtparam=audio=on
-  #'';
 
   # TODO: move some of these to a general server include file
   networking.useDHCP = true;
@@ -21,7 +18,7 @@
     # customize as needed!
     bash zsh vim git
     libraspberrypi
-    cifs-utils
+    #cifs-utils
   ];
 
   time.timeZone = "Europe/Vienna"; 
@@ -33,6 +30,9 @@
 
   # Nix
   boot.tmp.cleanOnBoot = true;
+
+  programs.nano.enable = false;
+  systemd.services.modem-manager.enable = false;
 
   # don't install man pages to save space
   documentation.man.enable = false;
