@@ -17,7 +17,6 @@
   environment.systemPackages = with pkgs; [
     # customize as needed!
     podman
-    cifs-utils
   ];
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
