@@ -3,7 +3,7 @@
 {
   imports =
     [ 
-      ./includes/rpi3.nix
+      ./includes/rpi4.nix
       ./includes/deploy.nix
       ./includes/monitoring.nix
 
