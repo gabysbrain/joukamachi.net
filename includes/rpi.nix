@@ -7,7 +7,19 @@
     '';
   };
 
-  boot.loader.generic-extlinux-compatible.enable = lib.mkDefault true;
+  boot = {
+    initrd.availableKernelModules = [ "xhci_pci" "usbhid" "usb_storage" ];
+    loader = {
+      grub.enable = false;
+      generic-extlinux-compatible.enable = lib.mkDefault true;
+    };
+  };
+  hardware.enableRedistributableFirmware = true;
+
+  fileSystems."/" =
+    { device = "/dev/mmcblk0p2";
+      fsType = "ext4";
+    };
 
   # TODO: move some of these to a general server include file
   networking.useDHCP = true;
