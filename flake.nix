@@ -19,6 +19,8 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     #nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    nixos-hardware.url = "github:nixos/nixos-hardware";
+
     deploy-rs.url = "github:serokell/deploy-rs";
     deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -34,7 +36,7 @@
     };
   };
 
-  outputs = { self, devshell, flake-utils, nixpkgs, deploy-rs, agenix, adblock-unbound, ... }: {
+  outputs = { self, devshell, flake-utils, nixos-hardware, nixpkgs, deploy-rs, agenix, adblock-unbound, ... }: {
     nixosConfigurations.kura = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [ 
@@ -78,6 +80,7 @@
       system = "x86_64-linux";
       modules = [ 
         # rpi stuff
+        nixos-hardware.nixosModules.raspberry-pi-4
         #"${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
         {
           nixpkgs.config.allowUnsupportedSystem = true;
