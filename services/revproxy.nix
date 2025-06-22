@@ -10,7 +10,7 @@
     recommendedOptimisation = true;
     recommendedProxySettings = true;
     recommendedTlsSettings = true;
-    clientMaxBodySize = "2g";
+    clientMaxBodySize = "10g";
 
     virtualHosts."media.joukamachi.net" = {
       forceSSL = true;
