@@ -17,6 +17,6 @@ help = "Deploy a single machine (arg is machine name)"
 category = "[deploy]"
 name = "targets"
 command = """\
-  nix flake show --json --all-systems | jq -r ".nixosConfigurations | keys[]" \
+  echo `nix eval .#nixosConfigurations --apply 'pkgs: builtins.concatStringsSep " " (builtins.attrNames pkgs)'` | xargs
   """
 help = "get a list of system targets to install"
