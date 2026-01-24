@@ -1,15 +1,10 @@
 # https://numtide.github.io/devshell
 [[commands]]
 category = "[deploy]"
-name = "deploy"
-package = "deploy-rs"
-
-[[commands]]
-category = "[deploy]"
 name = "deploy-one"
 #package = "deploy-rs"
 command = """\
-  deploy ".#${1}" \
+  make HOST=${1} deploy
   """
 help = "Deploy a single machine (arg is machine name)"
 
