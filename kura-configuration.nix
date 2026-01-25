@@ -2,52 +2,68 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
 
-{ config, lib, pkgs, modulesPath, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
 
 {
-  imports =
-    [ 
-      (modulesPath + "/installer/scan/not-detected.nix")
-      ./includes/deploy.nix
-      ./includes/monitoring.nix
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+    ./includes/deploy.nix
+    ./includes/monitoring.nix
 
-      # services to put here
-      # TODO: put these in the flake file to get an overview of what services are running where 
-      ./services/restic-server.nix
-      ./services/jellyfin.nix
-      ./services/postgres.nix
-      ./services/mysql.nix
-      ./services/code.nix
-      ./services/monitoring.nix
-      ./services/loki.nix
-      ./services/mopidy.nix
-      ./services/revproxy.nix
-      ./services/samba.nix
-      ./services/snapserver.nix
-      ./services/photos.nix
-      ./services/taskserver.nix
-      ./services/grocy.nix
-      ./services/cachix.nix
-    ];
+    # services to put here
+    # TODO: put these in the flake file to get an overview of what services are running where
+    ./services/restic-server.nix
+    ./services/jellyfin.nix
+    ./services/postgres.nix
+    ./services/mysql.nix
+    ./services/code.nix
+    ./services/actions_runner.nix
+    ./services/monitoring.nix
+    ./services/loki.nix
+    ./services/mopidy.nix
+    ./services/revproxy.nix
+    ./services/samba.nix
+    ./services/snapserver.nix
+    ./services/photos.nix
+    ./services/taskserver.nix
+    ./services/grocy.nix
+    ./services/cachix.nix
+  ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" ];
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "ahci"
+    "nvme"
+    "usb_storage"
+    "usbhid"
+    "sd_mod"
+  ];
   boot.initrd.kernelModules = [ "dm-snapshot" ];
-  boot.kernelModules = [ "kvm-amd" "amdgpu" ];
+  boot.kernelModules = [
+    "kvm-amd"
+    "amdgpu"
+  ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-label/root";
-      fsType = "ext4";
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-label/root";
+    fsType = "ext4";
+  };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-label/BOOT";
-      fsType = "vfat";
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-label/BOOT";
+    fsType = "vfat";
+  };
 
-  swapDevices =
-    [ { device = "/dev/disk/by-label/swap"; }
-    ];
+  swapDevices = [
+    { device = "/dev/disk/by-label/swap"; }
+  ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
@@ -67,7 +83,11 @@
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.forceImportRoot = false;
   boot.zfs.devNodes = "/dev/disk/by-id";
-  boot.zfs.extraPools = [ "backup" "store" "db" ];
+  boot.zfs.extraPools = [
+    "backup"
+    "store"
+    "db"
+  ];
   networking.hostId = "b17f36e0"; # for zfs
 
   fileSystems."/home" = {
@@ -92,7 +112,6 @@
     device = "/home-movies/library/cagla";
     options = [ "bind" ];
   };
-
 
   # influxdb2 desperately wants to run out of /var/lib/influxdb2
   fileSystems."/var/lib/influxdb2" = {
@@ -119,7 +138,13 @@
   age.secrets.restic.file = ./secrets/restic.age;
   services.restic.backups = {
     local = {
-      paths = [ "/home-movies" "/music" "/home" "/videos" "/var/lib/gitea" ];
+      paths = [
+        "/home-movies"
+        "/music"
+        "/home"
+        "/videos"
+        "/var/lib/gitea"
+      ];
       repository = "rest:https://backup.joukamachi.net";
       passwordFile = config.age.secrets.restic.path;
       exclude = [
@@ -148,21 +173,27 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.tom = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "jellyfin" "docker" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [
+      "wheel"
+      "jellyfin"
+      "docker"
+    ]; # Enable ‘sudo’ for the user.
   };
 
   users.users.cagla = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "jellyfin" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [
+      "wheel"
+      "jellyfin"
+    ]; # Enable ‘sudo’ for the user.
   };
-
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     git
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #   wget
+    #   wget
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -189,7 +220,7 @@
       };
     };
   };
-  
+
   # auto gc
   nix.gc = {
     automatic = true;
@@ -206,4 +237,3 @@
   system.stateVersion = "23.05"; # Did you read the comment?
 
 }
-
