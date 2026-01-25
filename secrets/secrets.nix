@@ -5,7 +5,10 @@ let
 
   kura = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIYir4CQI59VWm2Jxbk2FiIkwIPDhMq6zG0Z6XDLBjqx";
   apple = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBRmE1oaXmEd/7j0MqUOTnzZCOF+iCcwqnWTP0nkwY2a";
-  servers = [ kura apple ];
+  servers = [
+    kura
+    apple
+  ];
 
   #backup = [ philadelphia katana util ];
 
@@ -20,4 +23,5 @@ in
   "immich-secrets.age".publicKeys = me ++ [ kura ];
   "mopidy-jellyfin-conf.age".publicKeys = me ++ servers;
   "atticd-env.age".publicKeys = me ++ servers;
+  "forgejo-runner-token.age".publicKeys = me ++ servers;
 }
