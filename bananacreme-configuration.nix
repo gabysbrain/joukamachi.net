@@ -1,22 +1,26 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 {
-  imports =
-    [ 
-      ./includes/rpi3.nix
-      ./includes/deploy.nix
-      ./includes/monitoring.nix
+  imports = [
+    ./includes/rpi3.nix
+    ./includes/deploy.nix
+    ./includes/monitoring.nix
 
-      # services to put here
-      ./services/zigbee.nix
-    ];
+    # services to put here
+    ./services/zigbee.nix
+  ];
 
   networking.hostName = "bananacreme";
 
   # Packages
   environment.systemPackages = with pkgs; [
     # customize as needed!
-    podman
+    #podman
   ];
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
