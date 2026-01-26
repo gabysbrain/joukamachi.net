@@ -1,5 +1,10 @@
 # from https://github.com/mirosval/unbound-blocklist/tree/main
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
@@ -33,7 +38,10 @@
   };
 
   networking.firewall = {
-    allowedTCPPorts = [ config.services.z2m.port 1883 ];
+    allowedTCPPorts = [
+      config.services.z2m.port
+      1883
+    ];
   };
 
   # send data to influx
