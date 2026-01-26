@@ -1,8 +1,16 @@
 # from https://github.com/mirosval/unbound-blocklist/tree/main
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  networking.firewall.allowedTCPPorts = [ 6600 6680 ];
+  networking.firewall.allowedTCPPorts = [
+    6600
+    6680
+  ];
 
   age.secrets.mopidy-jellyfin-conf = {
     file = ../secrets/mopidy-jellyfin-conf.age;
