@@ -1,5 +1,8 @@
 { pkgs, config, ... }:
 {
+  # cross-compile arch64
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   age.secrets.forgejo-runner-token.file = ../secrets/forgejo-runner-token.age;
 
   # podman or docker needed for vistualized runner hosts
