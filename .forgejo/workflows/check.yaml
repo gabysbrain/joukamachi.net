@@ -1,6 +1,6 @@
 on: [push]
 jobs:
-  build:
+  check:
     runs-on: native
     steps:
       - uses: actions/checkout@v4
