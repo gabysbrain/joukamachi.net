@@ -19,8 +19,10 @@
 
   services.snapserver = {
     enable = true;
-    codec = "flac";
-    settings.stream.source = "pipe:///run/snapserver/pipewire?name=ttw";
+    settings.stream = {
+      codec = "flac";
+      source = "pipe:///run/snapserver/pipewire?name=ttw";
+    };
     openFirewall = true;
   };
 
