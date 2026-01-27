@@ -16,7 +16,7 @@
   ## If you want to use JACK applications, uncomment this
   ##jack.enable = true;
   #};
-  hardware.pulseaudio.enable = true;
+  services.pulseaudio.enable = true;
 
   systemd.services.snapplayer = {
     wantedBy = [ "multi-user.target" ];
