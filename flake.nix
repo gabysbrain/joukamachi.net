@@ -1,15 +1,6 @@
 {
   description = "Home network full of delicious servers";
 
-  nixConfig = {
-    extra-substituters = [
-      "https://cachix.joukamachi.net/prod"
-    ];
-    extra-trusted-public-keys = [
-      "prod:YvdQaSxvCua1bSMOD3JQj7eexVTZhmeHWWY842+T+aM="
-    ];
-  };
-
   inputs = {
     devshell.url = "github:numtide/devshell";
     flake-utils.url = "github:numtide/flake-utils";
