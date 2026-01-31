@@ -1,9 +1,15 @@
-{ lib, config, services, pkgs, ... }:
+{
+  lib,
+  config,
+  services,
+  pkgs,
+  ...
+}:
 
 {
   services.postgresql = {
     enable = true;
-    package = pkgs.postgresql_15;
+    package = pkgs.postgresql_16;
     enableTCPIP = true;
     dataDir = "/db/postgres";
     authentication = lib.mkForce ''
@@ -23,4 +29,3 @@
   };
 
 }
-
