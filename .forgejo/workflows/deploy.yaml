@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - ci-deploy
+      - main
 
 env:
   DEPLOY_KEY_FILE: /tmp/id_nixos_deploy_key
