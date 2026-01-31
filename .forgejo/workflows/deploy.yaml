@@ -1,10 +1,14 @@
 on:
   push:
     branches:
-      - ci-deploy
+      - main
+
+env:
+  DEPLOY_KEY_FILE: /tmp/id_nixos_deploy_key
+  NIX_SSHOPTS: -o UserKnownHostsFile=/tmp/nixos_deploy_known_hosts
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: native
     strategy:
       matrix:
@@ -12,7 +16,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: make HOST=${{ matrix.host }} build
-  deploy:
-    runs-on: native
-    steps:
-      run: echo "test me"
+      - run: |
+          echo "${{ secrets.DEPLOY_SSH_KEY }}" > "${{ env.DEPLOY_KEY_FILE }}" 
+          chmod 0600 /tmp/id_nixos_deploy_key
+      - run: |
+          echo "${{ vars.SSH_KNOWN_HOSTS }}" > /tmp/nixos_deploy_known_hosts 
+          chmod 0600 /tmp/nixos_deploy_known_hosts
+      - run: nix copy --no-check-sigs --to ssh://deploy@${{ matrix.host }}.joukamachi.net?ssh-key=${{ env.DEPLOY_KEY_FILE }} ./result
+      - run: ssh ${{ env.NIX_SSHOPTS }} -i "${{ env.DEPLOY_KEY_FILE }}" deploy@${{ matrix.host }}.joukamachi.net sudo nix-env -p /nix/var/nix/profiles/system --set $(readlink ./result)
+      - run: ssh ${{ env.NIX_SSHOPTS }} -i "${{ env.DEPLOY_KEY_FILE }}" deploy@${{ matrix.host }}.joukamachi.net sudo /nix/var/nix/profiles/system/bin/switch-to-configuration boot
