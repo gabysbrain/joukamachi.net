@@ -42,6 +42,7 @@
         gnumake
         nix
         nodejs
+        openssh
         wget
       ];
     };
