@@ -33,7 +33,6 @@
     ./services/photos.nix
     ./services/taskserver.nix
     ./services/grocy.nix
-    ./services/cachix.nix
   ];
 
   boot.initrd.availableKernelModules = [
