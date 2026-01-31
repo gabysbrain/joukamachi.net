@@ -1,4 +1,10 @@
-{ lib, config, services, pkgs, ... }:
+{
+  lib,
+  config,
+  services,
+  pkgs,
+  ...
+}:
 
 {
   services.postgresql = {
