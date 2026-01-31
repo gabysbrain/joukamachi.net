@@ -1,0 +1,18 @@
+on:
+  push:
+    branches:
+      - ci-deploy
+
+jobs:
+  build:
+    runs-on: native
+    strategy:
+      matrix:
+        host: ["kura", "apple", "bananacreme", "cherry", "pumpkin"]
+    steps:
+      - uses: actions/checkout@v4
+      - run: make HOST=${{ matrix.host }} build
+  deploy:
+    runs-on: native
+    steps:
+      run: echo "test me"
