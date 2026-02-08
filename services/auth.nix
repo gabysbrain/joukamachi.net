@@ -16,8 +16,8 @@
       postgresql = {
         host = "db.joukamachi.net";
       };
+      disable_startup_analytics = true;
+      avatars = "initials";
     };
-    diable_startup_analytics = true;
-    avatars = "initials";
   };
 }
