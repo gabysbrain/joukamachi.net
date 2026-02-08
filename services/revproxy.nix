@@ -20,6 +20,20 @@
     recommendedTlsSettings = true;
     clientMaxBodySize = "10g";
 
+    virtualHosts."auth.joukamachi.net" = {
+      enableACME = true;
+      forceSSL = true;
+      acmeRoot = null;
+      locations."/" = {
+        proxyPass = "http://apple.joukamachi.net:9443/";
+        # needed for websockets
+        extraConfig = ''
+          proxy_set_header Upgrade ''$http_upgrade;
+          proxy_set_header Connection ''$http_connection;
+        '';
+      };
+    };
+
     virtualHosts."media.joukamachi.net" = {
       forceSSL = true;
       enableACME = true;
