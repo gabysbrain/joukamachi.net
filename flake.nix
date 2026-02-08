@@ -20,6 +20,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
+
+    # authentik nix community package
+    authentik-nix = {
+      url = "github:nix-community/authentik-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -31,6 +37,7 @@
       nixpkgs,
       agenix,
       adblock-unbound,
+      authentik-nix,
       ...
     }:
     {
@@ -56,6 +63,7 @@
           ./apple-configuration.nix
           agenix.nixosModules.default
           adblock-unbound.nixosModules.default
+          authentik-nix.nixosModules.default
         ];
       };
       nixosConfigurations.bananacreme = nixpkgs.lib.nixosSystem {
