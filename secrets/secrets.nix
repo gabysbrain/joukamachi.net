@@ -24,4 +24,5 @@ in
   "mopidy-jellyfin-conf.age".publicKeys = me ++ servers;
   "atticd-env.age".publicKeys = me ++ servers;
   "forgejo-runner-token.age".publicKeys = me ++ servers;
+  "authentik-env.age".publicKeys = me ++ servers;
 }
