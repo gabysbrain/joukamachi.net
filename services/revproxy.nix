@@ -84,12 +84,30 @@
       '';
     };
 
+    virtualHosts."auth.joukamachi.net" = {
+      enableACME = true;
+      forceSSL = true;
+      acmeRoot = null;
+      locations."/" = {
+        proxyPass = "http://apple.joukamachi.net:9091";
+      };
+    };
+
     virtualHosts."code.joukamachi.net" = {
       enableACME = true;
       forceSSL = true;
       acmeRoot = null;
       locations."/" = {
         proxyPass = "http://localhost:3001/";
+      };
+    };
+
+    virtualHosts."ldap.joukamachi.net" = {
+      enableACME = true;
+      forceSSL = true;
+      acmeRoot = null;
+      locations."/" = {
+        proxyPass = "http://apple.joukamachi.net:17170";
       };
     };
 
