@@ -14,6 +14,9 @@
       suffix = "dc=joukamachi,dc=net";
     };
   };
+  systemd.services.portunus.environment.PORTUNUS_SERVER_HTTP_LISTEN =
+    pkgs.lib.mkForce "[::]:${toString config.services.portunus.port}";
+  networking.firewall.allowedTCPPorts = [ config.services.portunus.port ];
 
   services.authelia.instances.main = {
     enable = true;
