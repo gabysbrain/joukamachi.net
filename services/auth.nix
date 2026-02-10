@@ -23,12 +23,37 @@
     pkgs.lib.mkForce "[::]:${toString config.services.portunus.port}";
   networking.firewall.allowedTCPPorts = [ config.services.portunus.port ];
 
+  age.secrets.authelia-jwt-secret = {
+    file = ../secrets/authelia-jwt-secret.age;
+    owner = config.services.authelia.instances.main.user;
+  };
+  age.secrets.authelia-storage-key = {
+    file = ../secrets/authelia-storage-key.age;
+    owner = config.services.authelia.instances.main.user;
+  };
+  age.secrets.authelia-session-secret = {
+    file = ../secrets/authelia-session-secret.age;
+    owner = config.services.authelia.instances.main.user;
+  };
+  age.secrets.authelia-ldap-pw = {
+    file = ../secrets/authelia-ldap-pw.age;
+    owner = config.services.authelia.instances.main.user;
+  };
+  age.secrets.authelia-pg-pw = {
+    file = ../secrets/authelia-pg-pw.age;
+    owner = config.services.authelia.instances.main.user;
+  };
   services.authelia.instances.main = {
     enable = true;
     secrets = {
       storageEncryptionKeyFile = config.age.secrets.authelia-storage-key.path;
       jwtSecretFile = config.age.secrets.authelia-jwt-secret.path;
       sessionSecretFile = config.age.secrets.authelia-session-secret.path;
+    };
+    environmentVariables = {
+      # these aren't in secrets
+      "AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE" = config.age.secrets.authelia-ldap-pw.path;
+      "AUTHELIA_STORAGE_POSTGRES_PASSWORD_FILE" = config.age.secrets.authelia-pg-pw.path;
     };
     settings = {
       theme = "auto";
