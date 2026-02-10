@@ -50,3 +50,13 @@ jobs:
       - run: ssh ${{ env.NIX_SSHOPTS }} -i "${{ env.DEPLOY_KEY_FILE }}" deploy@${{ matrix.host }}.joukamachi.net sudo /nix/var/nix/profiles/system/bin/switch-to-configuration boot
       - run: ssh ${{ env.NIX_SSHOPTS }} -i "${{ env.DEPLOY_KEY_FILE }}" deploy@${{ matrix.host }}.joukamachi.net sudo reboot
       - run: sleep 600
+  deploy-test:
+    if: forgejo.ref != 'refs/head/main'
+    needs:
+      - build-and-copy
+    runs-on: native
+    strategy:
+      matrix:
+        host: ["kura", "apple", "bananacreme", "cherry", "pumpkin"]
+    steps:
+      - run: ssh ${{ env.NIX_SSHOPTS }} -i "${{ env.DEPLOY_KEY_FILE }}" deploy@${{ matrix.host }}.joukamachi.net sudo /nix/var/nix/profiles/system/bin/switch-to-configuration test
