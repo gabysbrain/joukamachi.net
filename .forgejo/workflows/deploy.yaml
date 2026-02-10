@@ -1,14 +1,18 @@
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      should_reboot:
+        description: "reboot server"
+        type: boolean
+        required: true
+        default: 'false'
 
 env:
   DEPLOY_KEY_FILE: /tmp/id_nixos_deploy_key
   NIX_SSHOPTS: -o UserKnownHostsFile=/tmp/nixos_deploy_known_hosts
 
 jobs:
-  build-and-deploy:
+  build-and-copy:
     runs-on: native
     strategy:
       matrix:
@@ -24,4 +28,25 @@ jobs:
           chmod 0600 /tmp/nixos_deploy_known_hosts
       - run: nix copy --no-check-sigs --to ssh://deploy@${{ matrix.host }}.joukamachi.net?ssh-key=${{ env.DEPLOY_KEY_FILE }} ./result
       - run: ssh ${{ env.NIX_SSHOPTS }} -i "${{ env.DEPLOY_KEY_FILE }}" deploy@${{ matrix.host }}.joukamachi.net sudo nix-env -p /nix/var/nix/profiles/system --set $(readlink ./result)
+  deploy-switch:
+    if: ${{ !inputs.should_reboot && forgejo.ref == 'refs/heads/main' }}
+    needs:
+      - build-and-copy
+    runs-on: native
+    strategy:
+      matrix:
+        host: ["kura", "apple", "bananacreme", "cherry", "pumpkin"]
+    steps:
+      - run: ssh ${{ env.NIX_SSHOPTS }} -i "${{ env.DEPLOY_KEY_FILE }}" deploy@${{ matrix.host }}.joukamachi.net sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch
+  deploy-reboot:
+    if: ${{ inputs.should_reboot && forgejo.ref == 'refs/heads/main' }}
+    needs:
+      - build-and-copy
+    runs-on: native
+    strategy:
+      matrix:
+        host: ["kura", "apple", "bananacreme", "cherry", "pumpkin"]
+    steps:
       - run: ssh ${{ env.NIX_SSHOPTS }} -i "${{ env.DEPLOY_KEY_FILE }}" deploy@${{ matrix.host }}.joukamachi.net sudo /nix/var/nix/profiles/system/bin/switch-to-configuration boot
+      - run: ssh ${{ env.NIX_SSHOPTS }} -i "${{ env.DEPLOY_KEY_FILE }}" deploy@${{ matrix.host }}.joukamachi.net sudo reboot
+      - run: sleep 600
