@@ -1,15 +1,20 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 {
-  imports =
-    [ 
-      ./includes/rpi3.nix
-      ./includes/deploy.nix
-      ./includes/monitoring.nix
+  imports = [
+    ./includes/rpi3.nix
+    ./includes/deploy.nix
+    ./includes/monitoring.nix
 
-      # services to put here
-      ./services/dns.nix
-    ];
+    # services to put here
+    ./services/dns.nix
+    ./services/auth.nix
+  ];
 
   networking.hostName = "apple";
 
