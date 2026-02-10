@@ -6,6 +6,10 @@
 }:
 
 {
+  age.secrets.portunus-seedfile = {
+    file = ../secrets/portunus-seedfile.age;
+    owner = config.services.portunus.user;
+  };
   services.portunus = {
     enable = true;
     domain = "sso.joukamachi.net";
@@ -13,6 +17,7 @@
     ldap = {
       suffix = "dc=joukamachi,dc=net";
     };
+    seedPath = config.age.secrets.portunus-seedfile.path;
   };
   systemd.services.portunus.environment.PORTUNUS_SERVER_HTTP_LISTEN =
     pkgs.lib.mkForce "[::]:${toString config.services.portunus.port}";
