@@ -21,7 +21,6 @@
   };
   systemd.services.portunus.environment.PORTUNUS_SERVER_HTTP_LISTEN =
     pkgs.lib.mkForce "[::]:${toString config.services.portunus.port}";
-  networking.firewall.allowedTCPPorts = [ config.services.portunus.port ];
 
   age.secrets.authelia-jwt-secret = {
     file = ../secrets/authelia-jwt-secret.age;
@@ -122,4 +121,9 @@
       };
     };
   };
+
+  networking.firewall.allowedTCPPorts = [
+    config.services.portunus.port
+    9091
+  ];
 }
