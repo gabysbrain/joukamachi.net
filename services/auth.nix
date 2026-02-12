@@ -102,7 +102,7 @@
           address = "ldap://apple.joukamachi.net";
           user = "uid=admin,ou=users,dc=joukamachi,dc=net"; # FIXME: there must be a better choice
           base_dn = "dc=joukamachi,dc=net";
-          users_filter = "(&(objectclass=person)({username_attribute}={input}))";
+          users_filter = "(&(objectclass=person)(|({username_attribute}={input})({mail_attribute}={input})))";
           additional_groups_dn = "ou=groups";
           groups_filter = "(&(objectclass=person)(isMemberOf=cn={dn},ou=groups,dc=joukamachi,dc=net))";
           group_search_mode = "filter";
