@@ -31,6 +31,22 @@ let
       token_endpoint_auth_method = "client_secret_basic";
     };
   oidcConfigs = [
+    {
+      clientId = "immich";
+      clientSecret = "$pbkdf2-sha512$310000$dHP.P8zy0RLgLsPrORGjkg$s2N/VTVR43gXyStqezY5iRnBw8myVv5y/Wo4ENmPJC9qXYOcfL06KUFIB55Gx1RbaRsvgEjZqYOO3yZNdJrMFQ";
+      #pkceChallengeMethod = "";
+      redirectUris = [
+        "https://photos.joukamachi.net/auth/login"
+        "https://photos.joukamachi.net/user-settings"
+        "app.immich:///oauth-callback"
+      ];
+      scopes = [
+        "openid"
+        "profile"
+        "email"
+      ];
+      endpointAuthMethod = "client_secret_post";
+    }
   ];
 in
 {
