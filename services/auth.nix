@@ -5,6 +5,34 @@
   ...
 }:
 
+let
+  defaultConfig =
+    {
+      clientId,
+      clientSecret,
+      pkceChallengeMethod ? "",
+      redirectUris,
+      scopes,
+    }:
+    {
+      client_id = clientId;
+      client_name = clientId;
+      client_secret = clientSecret;
+      public = false;
+      authorization_policy = "two_factor";
+      require_pkce = pkceChallengeMethod != "";
+      pkce_challenge_method = pkceChallengeMethod;
+      redirect_uris = redirectUris;
+      scopes = scopes;
+      response_types = [ "code" ];
+      grant_types = [ "authorization_code" ];
+      access_token_signed_response_alg = "none";
+      userinfo_signed_response_alg = "none";
+      token_endpoint_auth_method = "client_secret_basic";
+    };
+  oidcConfigs = [
+  ];
+in
 {
   age.secrets.portunus-seedfile = {
     file = ../secrets/portunus-seedfile.age;
@@ -61,6 +89,7 @@
       server.disable_healthcheck = true;
       server.address = "tcp://0.0.0.0:9091/";
 
+      identity_providers.oidc.clients = map defaultConfig oidcConfigs;
       access_control = {
         default_policy = "deny";
         rules = [
