@@ -82,6 +82,10 @@ in
     file = ../secrets/authelia-ldap-pw.age;
     owner = config.services.authelia.instances.main.user;
   };
+  age.secrets.authelia-oidc-issuer = {
+    file = ../secrets/authelia-oidc-issuer.age;
+    owner = config.services.authelia.instances.main.user;
+  };
   age.secrets.authelia-pg-pw = {
     file = ../secrets/authelia-pg-pw.age;
     owner = config.services.authelia.instances.main.user;
@@ -92,6 +96,7 @@ in
       storageEncryptionKeyFile = config.age.secrets.authelia-storage-key.path;
       jwtSecretFile = config.age.secrets.authelia-jwt-secret.path;
       sessionSecretFile = config.age.secrets.authelia-session-secret.path;
+      oidcIssuerPrivateKeyFile = config.age.secrets.authelia-oidc-issuer.path;
     };
     environmentVariables = {
       # these aren't in secrets

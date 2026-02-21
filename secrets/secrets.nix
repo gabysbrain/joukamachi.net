@@ -27,6 +27,7 @@ in
   "forgejo-runner-token.age".publicKeys = me ++ servers;
   "authelia-jwt-secret.age".publicKeys = me ++ [ apple ];
   "authelia-ldap-pw.age".publicKeys = me ++ [ apple ];
+  "authelia-oidc-issuer.age".publicKeys = me ++ [ apple ];
   "authelia-pg-pw.age".publicKeys = me ++ [ apple ];
   "authelia-storage-key.age".publicKeys = me ++ [ apple ];
   "authelia-session-secret.age".publicKeys = me ++ [ apple ];
