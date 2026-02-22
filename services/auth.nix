@@ -13,6 +13,7 @@ let
       pkceChallengeMethod ? "",
       redirectUris,
       scopes,
+      endpointAuthMethod ? "client_secret_basic",
     }:
     {
       client_id = clientId;
@@ -28,7 +29,7 @@ let
       grant_types = [ "authorization_code" ];
       access_token_signed_response_alg = "none";
       userinfo_signed_response_alg = "none";
-      token_endpoint_auth_method = "client_secret_basic";
+      token_endpoint_auth_method = endpointAuthMethod;
     };
   oidcConfigs = [
     {
