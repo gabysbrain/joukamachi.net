@@ -62,6 +62,20 @@ let
         "groups"
       ];
     }
+    {
+      clientId = "grafana";
+      clientSecret = "$pbkdf2-sha512$310000$22mNXKlTScPtJ8e9tYGH3Q$bd2E.ne2GkQf/RgPoPp1tBwHydaTKcCdg6t62/KwIK7B07R5nKkOyi1bgekPyUKDNtMTwDSgel3UBUW4C5rmDg";
+      #pkceChallengeMethod = "S256";
+      redirectUris = [
+        "https://monitor.joukamachi.net/login/generic_oauth"
+      ];
+      scopes = [
+        "openid"
+        "email"
+        "profile"
+        "groups"
+      ];
+    }
   ];
 in
 {
