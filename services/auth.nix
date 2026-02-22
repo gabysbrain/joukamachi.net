@@ -49,6 +49,20 @@ let
       endpointAuthMethod = "client_secret_post";
     }
     {
+      clientId = "jellyfin";
+      clientSecret = " $pbkdf2-sha512$310000$BBF0LTqigHKVEwEZZ22jTg$IgoG0Pfc5ke9wECu4f0Mz9HvwmsqG3GnEjPI5Ej78u42LyFFPcx.gShnG7.ozBMh6r5j4lenayrlZts0g6GRow";
+      pkceChallengeMethod = "S256";
+      redirectUris = [
+        "https://media.joukamachi.net/sso/OID/redirect/authelia"
+      ];
+      scopes = [
+        "openid"
+        "profile"
+        "groups"
+      ];
+      endpointAuthMethod = "client_secret_post";
+    }
+    {
       clientId = "forgejo";
       clientSecret = "$pbkdf2-sha512$310000$s6iR8ig28g5ZQrVEaTbKaw$GFDq7LTia45vsKILS4ueDc0RZbY0WHIfKTGJwxdKPkOWzyLEHnqToN1QCSsVKBeIIvg5zi435/6kbT/uc5qpwA";
       pkceChallengeMethod = "S256";
