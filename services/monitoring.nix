@@ -19,8 +19,12 @@ in
 
   services.grafana = {
     enable = true;
-    settings.server.http_addr = "127.0.0.1";
-    settings.server.http_port = 2342;
+    settings.server = {
+      http_addr = "127.0.0.1";
+      http_port = 2342;
+      domain = "monitor.joukamachi.net";
+      root_url = "https://monitor.joukamachi.net";
+    };
   };
 
   # influxdb for timeseries data
