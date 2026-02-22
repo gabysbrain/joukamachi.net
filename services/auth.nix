@@ -48,6 +48,20 @@ let
       ];
       endpointAuthMethod = "client_secret_post";
     }
+    {
+      clientId = "forgejo";
+      clientSecret = "$pbkdf2-sha512$310000$s6iR8ig28g5ZQrVEaTbKaw$GFDq7LTia45vsKILS4ueDc0RZbY0WHIfKTGJwxdKPkOWzyLEHnqToN1QCSsVKBeIIvg5zi435/6kbT/uc5qpwA";
+      pkceChallengeMethod = "S256";
+      redirectUris = [
+        "https://code.joukamachi.net/user/oauth2/authelia/callback"
+      ];
+      scopes = [
+        "openid"
+        "email"
+        "profile"
+        "groups"
+      ];
+    }
   ];
 in
 {
