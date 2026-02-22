@@ -90,6 +90,10 @@ in
     file = ../secrets/authelia-pg-pw.age;
     owner = config.services.authelia.instances.main.user;
   };
+  age.secrets.gmail-pw = {
+    file = ../secrets/gmail-pw.age;
+    owner = config.services.authelia.instances.main.user;
+  };
   services.authelia.instances.main = {
     enable = true;
     secrets = {
@@ -102,6 +106,7 @@ in
       # these aren't in secrets
       "AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE" = config.age.secrets.authelia-ldap-pw.path;
       "AUTHELIA_STORAGE_POSTGRES_PASSWORD_FILE" = config.age.secrets.authelia-pg-pw.path;
+      "AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE" = config.age.secrets.gmail-pw.path;
     };
     settings = {
       theme = "auto";
@@ -141,8 +146,10 @@ in
 
       notifier = {
         disable_startup_check = false;
-        filesystem = {
-          filename = "/var/lib/authelia-main/notification.txt";
+        smtp = {
+          address = "submission://smtp.gmail.com:587";
+          username = "torsneyt@gmail.com";
+          sender = "auth@joukamachi.net";
         };
       };
 

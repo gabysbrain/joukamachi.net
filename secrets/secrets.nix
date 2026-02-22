@@ -21,6 +21,7 @@ in
   "appshare-smb.age".publicKeys = me ++ servers;
   "immichdb-pw.age".publicKeys = me ++ [ kura ];
   "immich-secrets.age".publicKeys = me ++ [ kura ];
+  "gmail-pw.age".publicKeys = me ++ [ apple ];
   "mopidy-jellyfin-conf.age".publicKeys = me ++ servers;
   "portunus-seedfile.age".publicKeys = me ++ [ apple ];
   "atticd-env.age".publicKeys = me ++ servers;
