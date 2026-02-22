@@ -12,12 +12,23 @@
     package = pkgs.postgresql_16;
     enableTCPIP = true;
     dataDir = "/db/postgres";
-    authentication = lib.mkForce ''
+    authentication = pkgs.lib.mkOverride 10 ''
       local all all trust
-      host  all all 10.0.0.0/24 md5
-      host  all all 10.88.0.0/16 md5
-      host  all all 172.0.0.0/8 md5
+      host  sameuser all 127.0.0.1/32 scram-sha-256
+      host  sameuser all 10.0.0.0/24 scram-sha-256
     '';
+
+    # TODO: ideally in auth.nix but that's on another host
+    ensureDatabases = [ "authelia" ];
+    ensureUsers = [
+      {
+        name = "authelia";
+        ensureDBOwnership = true;
+        ensureClauses = {
+          login = true;
+        };
+      }
+    ];
   };
 
   networking.firewall.allowedTCPPorts = [ 5432 ];

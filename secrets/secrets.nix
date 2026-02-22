@@ -21,7 +21,15 @@ in
   "appshare-smb.age".publicKeys = me ++ servers;
   "immichdb-pw.age".publicKeys = me ++ [ kura ];
   "immich-secrets.age".publicKeys = me ++ [ kura ];
+  "gmail-pw.age".publicKeys = me ++ [ apple ];
   "mopidy-jellyfin-conf.age".publicKeys = me ++ servers;
+  "portunus-seedfile.age".publicKeys = me ++ [ apple ];
   "atticd-env.age".publicKeys = me ++ servers;
   "forgejo-runner-token.age".publicKeys = me ++ servers;
+  "authelia-jwt-secret.age".publicKeys = me ++ [ apple ];
+  "authelia-ldap-pw.age".publicKeys = me ++ [ apple ];
+  "authelia-oidc-issuer.age".publicKeys = me ++ [ apple ];
+  "authelia-pg-pw.age".publicKeys = me ++ [ apple ];
+  "authelia-storage-key.age".publicKeys = me ++ [ apple ];
+  "authelia-session-secret.age".publicKeys = me ++ [ apple ];
 }
