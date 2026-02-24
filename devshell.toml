@@ -1,5 +1,9 @@
 # https://numtide.github.io/devshell
 [[commands]]
+name = "pre-commit"
+package = "pre-commit"
+
+[[commands]]
 category = "[deploy]"
 name = "deploy-one"
 #package = "deploy-rs"
