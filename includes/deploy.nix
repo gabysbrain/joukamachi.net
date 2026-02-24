@@ -5,7 +5,9 @@
     isNormalUser = true;
     extraGroups = [ "wheel" ];
     homeMode = "500";
-    openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBtxo+1CFuJFBHErjV1tKala+2i7N7PDfBvX2Oa+nYGd tom@philadelphia" ];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBtxo+1CFuJFBHErjV1tKala+2i7N7PDfBvX2Oa+nYGd tom@philadelphia"
+    ];
   };
 
   nix.settings.trusted-users = [ "deploy" ];
@@ -13,10 +15,12 @@
   security.sudo = {
     enable = true;
     extraRules = [
-      { users = [ "deploy" ];
+      {
+        users = [ "deploy" ];
         commands = [
-          { command = "ALL"; 
-            options = [ "NOPASSWD" ]; 
+          {
+            command = "ALL";
+            options = [ "NOPASSWD" ];
           }
         ];
       }
@@ -29,8 +33,11 @@
     isSystemUser = true;
     group = "appshare";
   };
-  users.groups.appshare = {};
+  users.groups.appshare = { };
 
-  # needed for nix flake support 
-  nix.settings.experimental-features = ["nix-command" "flakes" ];
+  # needed for nix flake support
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 }

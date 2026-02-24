@@ -10,28 +10,34 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixos-generators }: rec {
-    nixosModules = {
-      system = {
-        disabledModules = [
-          #"profiles/base.nix"
-        ];
+  outputs =
+    {
+      self,
+      nixpkgs,
+      nixos-generators,
+    }:
+    rec {
+      nixosModules = {
+        system = {
+          disabledModules = [
+            #"profiles/base.nix"
+          ];
 
-        system.stateVersion = "23.11";
+          system.stateVersion = "23.11";
+        };
+      };
+
+      packages.aarch64-linux = {
+        sdcard = nixos-generators.nixosGenerate {
+          system = "aarch64-linux";
+          format = "sd-aarch64";
+          modules = [
+            self.nixosModules.system
+            ./base-config.nix
+            ../includes/deploy.nix
+            ../includes/rpi3.nix
+          ];
+        };
       };
     };
-
-     packages.aarch64-linux = {
-      sdcard = nixos-generators.nixosGenerate {
-        system = "aarch64-linux";
-        format = "sd-aarch64";
-        modules = [
-          self.nixosModules.system
-          ./base-config.nix
-          ../includes/deploy.nix
-          ../includes/rpi3.nix
-        ];
-      };
-    };
-  };
 }

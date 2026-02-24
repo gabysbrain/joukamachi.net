@@ -1,15 +1,19 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 {
-  imports =
-    [ 
-      ./includes/rpi4.nix
-      ./includes/deploy.nix
-      ./includes/monitoring.nix
+  imports = [
+    ./includes/rpi4.nix
+    ./includes/deploy.nix
+    ./includes/monitoring.nix
 
-      # services to put here
-      ./services/snapplayer.nix
-    ];
+    # services to put here
+    ./services/snapplayer.nix
+  ];
 
   networking.hostName = "cherry";
 

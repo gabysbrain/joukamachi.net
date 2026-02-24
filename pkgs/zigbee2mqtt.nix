@@ -1,15 +1,20 @@
-{config, pkgs, lib, ...}:
- 
- let
-   cfg = config.services.z2m;
-   z2mVersion = "1.39.0";
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
-   format = pkgs.formats.yaml { };
-   configFile = format.generate "zigbee2mqtt.yaml" cfg.settings;
- in
- 
- with lib;
- 
+let
+  cfg = config.services.z2m;
+  z2mVersion = "1.39.0";
+
+  format = pkgs.formats.yaml { };
+  configFile = format.generate "zigbee2mqtt.yaml" cfg.settings;
+in
+
+with lib;
+
 {
   options = {
     services.z2m = {
@@ -17,7 +22,7 @@
         default = false;
         type = with types; bool;
         description = ''
-         Start zigbee2mqtt
+          Start zigbee2mqtt
         '';
       };
 
@@ -25,7 +30,7 @@
         type = types.port;
         default = 8080;
         description = ''
-         Port the listener should listen on
+          Port the listener should listen on
         '';
       };
 
@@ -80,7 +85,7 @@
       data_path = "/app/data_dir";
       devices = mkDefault "devices.yaml";
       groups = mkDefault "groups.yaml";
-      external_converters = [];
+      external_converters = [ ];
       frontend.port = 8080;
       homeassistant = false;
       advanced.log_output = [ "console" ];
@@ -89,7 +94,7 @@
     virtualisation.oci-containers.containers = {
       "zigbee2mqtt" = {
         image = "docker.io/koenkk/zigbee2mqtt:${z2mVersion}";
-        volumes = [ 
+        volumes = [
           "${cfg.dataDir}:/app/data"
           "/run/udev:/run/udev:ro"
         ];
@@ -99,7 +104,7 @@
         autoStart = true;
         #user = "${toString config.ids.uids.zigbee2mqtt}";
         ports = [ "${toString cfg.port}:8080" ];
-        extraOptions = [ 
+        extraOptions = [
           #"--gidmap=20:27"
           "--device=${cfg.zigbeeController}:/dev/ttyUSB0"
         ];
@@ -113,4 +118,3 @@
     };
   };
 }
-

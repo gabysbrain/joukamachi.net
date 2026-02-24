@@ -1,14 +1,19 @@
-{ config, services, pkgs, ... }:
+{
+  config,
+  services,
+  pkgs,
+  ...
+}:
 
 {
   # Map the gitea user to postgresql's gitea-users
   #services.postgresql = {
-    #authentication = ''
-      #local gitea all ident map=gitea-users
-    #'';
-    #identMap = ''
-      #gitea-users gitea gitea
-    #'';
+  #authentication = ''
+  #local gitea all ident map=gitea-users
+  #'';
+  #identMap = ''
+  #gitea-users gitea gitea
+  #'';
   #};
 
   services.forgejo = {
@@ -25,4 +30,3 @@
     };
   };
 }
-

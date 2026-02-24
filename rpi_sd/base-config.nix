@@ -1,15 +1,20 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 {
   hardware.enableRedistributableFirmware = true;
   sdImage.compressImage = false;
 
   #fileSystems = {
-    #"/" = {
-      #device = lib.mkForce "none";
-      #fsType = lib.mkForce "tmpfs";
-      #options = lib.mkForce [ "defaults" "size=256M" "mode=755" ];
-    #};
+  #"/" = {
+  #device = lib.mkForce "none";
+  #fsType = lib.mkForce "tmpfs";
+  #options = lib.mkForce [ "defaults" "size=256M" "mode=755" ];
+  #};
   #};
 
   #networking.hostName = "nixpi"; # unleash your creativity!
@@ -23,10 +28,14 @@
       IPQos 0x00
     '';
   };
-  
+
   users.users.nixos = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "video" ];
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "video"
+    ];
     initialPassword = "nixos";
   };
   #services.getty.autologinUser = "nixos";
@@ -39,11 +48,14 @@
   # Packages
   environment.systemPackages = with pkgs; [
     # customize as needed!
-    bash zsh vim git
+    bash
+    zsh
+    vim
+    git
     libraspberrypi
   ];
 
-  time.timeZone = "Europe/Vienna"; 
+  time.timeZone = "Europe/Vienna";
 
   # server doesn't compile on raspberry pi
   services.localtimed.enable = false;
@@ -52,8 +64,7 @@
   # https://github.com/NixOS/nixpkgs/issues/126755#issuecomment-869149243
   nixpkgs.overlays = [
     (final: super: {
-      makeModulesClosure = x:
-        super.makeModulesClosure (x // { allowMissing = true; });
+      makeModulesClosure = x: super.makeModulesClosure (x // { allowMissing = true; });
     })
   ];
 
@@ -66,7 +77,7 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGJQREmqaoPzlEQZfnOVZqH7rWkYaUuWmoQ2T5daJ/uU tom@tomtorsneyweir.com"
     ];
   };
-  
+
   # Nix
   boot.tmp.cleanOnBoot = true;
 

@@ -1,4 +1,3 @@
-
 { lib, pkgs, ... }:
 
 {
@@ -14,4 +13,3 @@
 
   networking.firewall.allowedTCPPorts = [ 2049 ];
 }
-

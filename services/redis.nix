@@ -1,6 +1,11 @@
-{ config, services, pkgs, ... }:
+{
+  config,
+  services,
+  pkgs,
+  ...
+}:
 
-let 
+let
   redisConfig = s: {
     name = s.name;
     value = {
@@ -16,7 +21,10 @@ let
   };
   servers = [
     #{ name = "scratch"; port = 6379; }
-    { name = "immich"; port = 6380; }
+    {
+      name = "immich";
+      port = 6380;
+    }
   ];
 in
 {
@@ -33,4 +41,3 @@ in
     };
   };
 }
-

@@ -1,4 +1,9 @@
-{ config, services, pkgs, ... }:
+{
+  config,
+  services,
+  pkgs,
+  ...
+}:
 
 {
   services.mysql = {
@@ -15,4 +20,3 @@
   };
 
 }
-

@@ -1,4 +1,9 @@
-{ config, services, pkgs, ... }:
+{
+  config,
+  services,
+  pkgs,
+  ...
+}:
 
 {
   services.taskchampion-sync-server = {
@@ -14,4 +19,3 @@
     openFirewall = true;
   };
 }
-

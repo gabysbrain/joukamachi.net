@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 # fixes for raspberry pis since they often need special handling for networking, etc
 {
   services.openssh = {
@@ -8,7 +13,11 @@
   };
 
   boot = {
-    initrd.availableKernelModules = [ "xhci_pci" "usbhid" "usb_storage" ];
+    initrd.availableKernelModules = [
+      "xhci_pci"
+      "usbhid"
+      "usb_storage"
+    ];
     loader = {
       grub.enable = false;
       generic-extlinux-compatible.enable = lib.mkDefault true;
@@ -16,10 +25,10 @@
   };
   hardware.enableRedistributableFirmware = true;
 
-  fileSystems."/" =
-    { device = "/dev/mmcblk0p2";
-      fsType = "ext4";
-    };
+  fileSystems."/" = {
+    device = "/dev/mmcblk0p2";
+    fsType = "ext4";
+  };
 
   # TODO: move some of these to a general server include file
   networking.useDHCP = true;
@@ -28,12 +37,15 @@
   # Packages
   environment.systemPackages = with pkgs; [
     # customize as needed!
-    bash zsh vim git
+    bash
+    zsh
+    vim
+    git
     libraspberrypi
     #cifs-utils
   ];
 
-  time.timeZone = "Europe/Vienna"; 
+  time.timeZone = "Europe/Vienna";
 
   # server doesn't compile on raspberry pi
   services.localtimed.enable = false;
@@ -49,6 +61,5 @@
   # don't install man pages to save space
   documentation.man.enable = false;
   documentation.nixos.enable = false;
-
 
 }

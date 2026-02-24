@@ -1,4 +1,9 @@
-{ config, services, pkgs, ... }:
+{
+  config,
+  services,
+  pkgs,
+  ...
+}:
 
 {
   services.restic.server = {
@@ -17,15 +22,15 @@
   # push to s3
   # HACK: get these out of /etc/ and just the store
   #environment.etc."rclone-offsite/filters.conf" = {
-    #user = "restic";
-    #group = "restic";
-    #text = rclone-filters;
+  #user = "restic";
+  #group = "restic";
+  #text = rclone-filters;
   #};
   # rclone bisync needs an md5 hash of the filters
   #environment.etc."rclone-offsite/filters.conf.md5" = {
-    #user = "restic";
-    #group = "restic";
-    #text = (builtins.hashString "md5" rclone-filters);
+  #user = "restic";
+  #group = "restic";
+  #text = (builtins.hashString "md5" rclone-filters);
   #};
   age.secrets.rclone-config = {
     owner = "restic";
@@ -55,4 +60,3 @@
     };
   };
 }
-

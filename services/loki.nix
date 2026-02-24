@@ -1,4 +1,9 @@
-{ config, services, pkgs, ... }:
+{
+  config,
+  services,
+  pkgs,
+  ...
+}:
 
 {
   services.loki = {
@@ -19,16 +24,18 @@
       };
 
       schema_config = {
-        configs = [{
-          from = "2020-05-15";
-          store = "tsdb";
-          object_store = "filesystem";
-          schema = "v13";
-          index = {
-            prefix = "index_";
-            period = "24h";
-          };
-        }];
+        configs = [
+          {
+            from = "2020-05-15";
+            store = "tsdb";
+            object_store = "filesystem";
+            schema = "v13";
+            index = {
+              prefix = "index_";
+              period = "24h";
+            };
+          }
+        ];
       };
 
       storage_config.filesystem.directory = "/tmp/loki/chunks";
@@ -36,6 +43,7 @@
   };
 
   # loki listening port
-  networking.firewall.allowedTCPPorts = [ config.services.loki.configuration.server.http_listen_port ];
+  networking.firewall.allowedTCPPorts = [
+    config.services.loki.configuration.server.http_listen_port
+  ];
 }
-

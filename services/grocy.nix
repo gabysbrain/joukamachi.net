@@ -1,4 +1,9 @@
-{ config, pkgs, services, ...}: 
+{
+  config,
+  pkgs,
+  services,
+  ...
+}:
 
 {
   services.grocy = {
@@ -18,4 +23,3 @@
     };
   };
 }
-

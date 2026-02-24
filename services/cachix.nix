@@ -1,4 +1,10 @@
-{ config, lib, pkgs, services, ...}: 
+{
+  config,
+  lib,
+  pkgs,
+  services,
+  ...
+}:
 
 {
   age.secrets.atticd-env.file = ../secrets/atticd-env.age;
@@ -11,8 +17,8 @@
       jwt = { };
 
       #storage = {
-        #path = "/var/lib/atticd";
-        #type = "local";
+      #path = "/var/lib/atticd";
+      #type = "local";
       #};
 
       database.url = "postgresql://atticd@db.joukamachi.net/atticd";
@@ -47,12 +53,10 @@
   # db config stuff
   services.postgresql = {
     ensureDatabases = [ "atticd" ];
-    ensureUsers = [ { name="atticd"; } ];
+    ensureUsers = [ { name = "atticd"; } ];
   };
 
   systemd.services.postgresql.postStart = lib.mkAfter ''
     $PSQL -tAc 'ALTER DATABASE "atticd" OWNER TO "atticd"'
   '';
 }
-
-

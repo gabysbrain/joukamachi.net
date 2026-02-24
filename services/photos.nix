@@ -1,4 +1,10 @@
-{ config, services, pkgs, virtualization, ... }:
+{
+  config,
+  services,
+  pkgs,
+  virtualization,
+  ...
+}:
 
 {
   age.secrets.immich-secrets.file = ../secrets/immich-secrets.age;
@@ -14,6 +20,8 @@
   };
 
   # faster video transcoding
-  users.users.immich.extraGroups = [ "video" "render" ];
+  users.users.immich.extraGroups = [
+    "video"
+    "render"
+  ];
 }
-

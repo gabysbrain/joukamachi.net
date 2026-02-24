@@ -1,12 +1,17 @@
-{config, pkgs, lib, ...}:
- 
- let
-   cfg = config.services.immich;
-   immichVersion = "v1.122.1";
- in
- 
- with lib;
- 
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+
+let
+  cfg = config.services.immich;
+  immichVersion = "v1.122.1";
+in
+
+with lib;
+
 {
   options = {
     services.my-immich = {
@@ -14,7 +19,7 @@
         default = false;
         type = with types; bool;
         description = ''
-         Start immich
+          Start immich
         '';
       };
 
@@ -22,7 +27,7 @@
         type = types.port;
         default = 8080;
         description = ''
-         Port the listener should listen on
+          Port the listener should listen on
         '';
       };
 
@@ -79,7 +84,7 @@
       "immich-server" = {
         image = "ghcr.io/immich-app/immich-server:${immichVersion}";
         #cmd = [ "start.sh" "immich" ];
-        volumes = [ 
+        volumes = [
           "${cfg.dataDir}:/usr/src/app/upload"
           "/run/agenix:/run/agenix"
         ];
@@ -108,9 +113,9 @@
 
     systemd.services.podman-create-pod-immich = {
       serviceConfig.Type = "oneshot";
-      wantedBy = [ 
-        "podman-immich-server.service" 
-        "podman-immich-machinelearning.service" 
+      wantedBy = [
+        "podman-immich-server.service"
+        "podman-immich-machinelearning.service"
       ];
 
       script = ''
@@ -119,4 +124,3 @@
     };
   };
 }
-
