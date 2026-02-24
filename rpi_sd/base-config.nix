@@ -1,7 +1,5 @@
 {
   pkgs,
-  lib,
-  config,
   ...
 }:
 
@@ -63,7 +61,7 @@
   # There's an error with missing sun4i module
   # https://github.com/NixOS/nixpkgs/issues/126755#issuecomment-869149243
   nixpkgs.overlays = [
-    (final: super: {
+    (_final: super: {
       makeModulesClosure = x: super.makeModulesClosure (x // { allowMissing = true; });
     })
   ];

@@ -24,7 +24,6 @@
 
   outputs =
     {
-      self,
       devshell,
       flake-utils,
       nixos-hardware,

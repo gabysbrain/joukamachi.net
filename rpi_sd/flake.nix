@@ -13,7 +13,6 @@
   outputs =
     {
       self,
-      nixpkgs,
       nixos-generators,
     }:
     rec {

@@ -1,7 +1,4 @@
 {
-  lib,
-  config,
-  services,
   pkgs,
   ...
 }:

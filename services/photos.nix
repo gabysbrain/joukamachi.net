@@ -1,8 +1,5 @@
 {
   config,
-  services,
-  pkgs,
-  virtualization,
   ...
 }:
 

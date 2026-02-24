@@ -1,6 +1,5 @@
 {
   config,
-  services,
   pkgs,
   ...
 }:

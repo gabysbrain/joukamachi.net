@@ -1,7 +1,6 @@
 # from https://github.com/mirosval/unbound-blocklist/tree/main
 {
   config,
-  lib,
   pkgs,
   ...
 }:
