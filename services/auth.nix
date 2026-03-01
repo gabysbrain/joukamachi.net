@@ -89,6 +89,22 @@ let
         "groups"
       ];
     }
+    {
+      clientId = "matrix";
+      clientSecret = "$pbkdf2-sha512$310000$E9jOVd3dCxWE/rtjWFHM6g$RiO45km5AWuTRzsv2GWnAYDl4WOo6wmACb2cixcqE4aU1E3I/GC6ZuaJFMsIk7dZCKBnaTWOfJgOlSR9/Ugy5w";
+      #pkceChallengeMethod = "S256";
+      redirectUris = [
+        "https://chat.joukamachi.net/_matrix/v3/login/sso/redirect"
+        "https://chat.joukamachi.net/_matrix/client/unstable/login/sso/callback"
+      ];
+      scopes = [
+        "openid"
+        "email"
+        "profile"
+        "groups"
+      ];
+      endpointAuthMethod = "client_secret_post";
+    }
   ];
 in
 {
