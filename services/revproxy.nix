@@ -91,6 +91,18 @@
       };
     };
 
+    virtualHosts."chat.joukamachi.net" = {
+      enableACME = true;
+      forceSSL = true;
+      acmeRoot = null;
+      locations."/" = {
+        proxyPass = "http://localhost:${toString config.services.matrix-tuwunel.settings.global.port}/";
+      };
+      extraConfig = ''
+        client_max_body_size ${toString config.services.matrix-tuwunel.settings.global.max_request_size};
+      '';
+    };
+
     virtualHosts."code.joukamachi.net" = {
       enableACME = true;
       forceSSL = true;
