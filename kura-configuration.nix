@@ -22,6 +22,7 @@
     ./services/jellyfin.nix
     ./services/postgres.nix
     ./services/mysql.nix
+    ./services/chat.nix
     ./services/code.nix
     ./services/actions_runner.nix
     ./services/monitoring.nix
