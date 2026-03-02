@@ -23,6 +23,7 @@ let
     "auth" = hosts.kura;
     "backup" = hosts.kura;
     "cachix" = hosts.kura;
+    "chat" = hosts.kura;
     "code" = hosts.kura;
     "db" = hosts.kura;
     "grocy" = hosts.kura;
