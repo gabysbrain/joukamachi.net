@@ -38,7 +38,7 @@ jobs:
         host: ["kura", "apple", "bananacreme", "cherry", "pumpkin"]
     steps:
       - run: ssh ${{ env.NIX_SSHOPTS }} -i "${{ env.DEPLOY_KEY_FILE }}" deploy@${{ matrix.host }}.joukamachi.net sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch
-  deploy-reboot:
+  deploy-boot:
     if: ${{ inputs.should_reboot && forgejo.ref == 'refs/heads/main' }}
     needs:
       - build-and-copy
@@ -48,6 +48,15 @@ jobs:
         host: ["kura", "apple", "bananacreme", "cherry", "pumpkin"]
     steps:
       - run: ssh ${{ env.NIX_SSHOPTS }} -i "${{ env.DEPLOY_KEY_FILE }}" deploy@${{ matrix.host }}.joukamachi.net sudo /nix/var/nix/profiles/system/bin/switch-to-configuration boot
+  reboot:
+    if: ${{ inputs.should_reboot && forgejo.ref == 'refs/heads/main' }}
+    needs:
+      - deploy-boot
+    runs-on: native
+    strategy:
+      matrix:
+        host: ["kura", "apple", "bananacreme", "cherry", "pumpkin"]
+    steps:
       - run: ssh ${{ env.NIX_SSHOPTS }} -i "${{ env.DEPLOY_KEY_FILE }}" deploy@${{ matrix.host }}.joukamachi.net sudo reboot
       - run: sleep 600
   deploy-test:
