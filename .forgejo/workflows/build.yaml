@@ -2,20 +2,15 @@ on:
   pull_request:
 
 jobs:
-  matrix-generator:
-    runs-on: native
-    outputs:
-      hosts: ${{ steps.generate_matrix.outputs.hosts }}
-    steps:
-      - id: generate_matrix
-        run: |
-          echo 'hosts=["kura", "apple", "bananacreme", "cherry", "pumpkin"]' >> $GITHUB_OUTPUT
   build:
-    needs: matrix-generator
     runs-on: native
-    strategy:
-      matrix:
-        host: ${{ fromJSON(needs.matrix-generator.outputs.hosts }}
     steps:
       - uses: actions/checkout@v4
-      - run: make HOST=${{ matrix.host }} build
+      - run: echo "hosts=apple kura cherry" >> $FORGEJO_ENV
+      - run: |
+          # set up the output refs within the flake for the hosts
+          read -ra host_array <<< "$hosts"
+          mapfile -t output_refs < <(printf ".#nixosConfigurations.%s.config.system.build.toplevel " ${hosts})
+          echo "${output_refs[@]}"
+          echo "output_refs=${output_refs[@]}" >> $FORGEJO_ENV
+      - run: nix build -L ${output_refs}
