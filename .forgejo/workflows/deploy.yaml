@@ -55,7 +55,7 @@ jobs:
     runs-on: native
     strategy:
       matrix:
-        host: ["kura", "apple", "bananacreme", "cherry", "pumpkin"]
+        host: ["apple", "bananacreme", "cherry", "pumpkin"]
     steps:
       - run: ssh ${{ env.NIX_SSHOPTS }} -i "${{ env.DEPLOY_KEY_FILE }}" deploy@${{ matrix.host }}.joukamachi.net sudo reboot
       - run: sleep 600
