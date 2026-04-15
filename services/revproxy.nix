@@ -145,6 +145,20 @@
       };
     };
 
+    virtualHosts."syncthing.joukamachi.net" = {
+      enableACME = true;
+      forceSSL = true;
+      acmeRoot = null;
+      locations."/" = {
+        proxyPass = "http://${config.services.syncthing.guiAddress}";
+        proxyWebsockets = true;
+        recommendedProxySettings = false;
+        extraConfig = ''
+          proxy_set_header Host "127.0.0.1:8384";
+        '';
+      };
+    };
+
     virtualHosts."ttw.music.joukamachi.net" = {
       enableACME = true;
       forceSSL = true;

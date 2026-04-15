@@ -33,4 +33,5 @@ in
   "authelia-pg-pw.age".publicKeys = me ++ [ apple ];
   "authelia-storage-key.age".publicKeys = me ++ [ apple ];
   "authelia-session-secret.age".publicKeys = me ++ [ apple ];
+  "syncthing-gui-pw.age".publicKeys = me ++ [ kura ];
 }

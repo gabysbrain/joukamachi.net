@@ -31,6 +31,7 @@
     ./services/revproxy.nix
     ./services/samba.nix
     ./services/snapserver.nix
+    ./services/syncthing.nix
     ./services/photos.nix
     ./services/taskserver.nix
     ./services/grocy.nix

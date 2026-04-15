@@ -32,6 +32,7 @@ let
     "monitor" = hosts.kura;
     "photos" = hosts.kura;
     "snapserver" = hosts.kura;
+    "syncthing" = hosts.kura;
     "taskserver" = hosts.kura;
     "ttw.music" = hosts.kura;
 

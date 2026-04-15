@@ -2,11 +2,20 @@ on:
   pull_request:
 
 jobs:
+  matrix-generator:
+    runs-on: native
+    outputs:
+      hosts: ${{ steps.generate_matrix.outputs.hosts }}
+    steps:
+      - id: generate_matrix
+        run: |
+          echo 'hosts=["kura", "apple", "bananacreme", "cherry", "pumpkin"]' >> $GITHUB_OUTPUT
   build:
+    needs: matrix-generator
     runs-on: native
     strategy:
       matrix:
-        host: ["kura", "apple", "bananacreme", "cherry", "pumpkin"]
+        host: ${{ fromJSON(needs.matrix-generator.outputs.hosts }}
     steps:
       - uses: actions/checkout@v4
       - run: make HOST=${{ matrix.host }} build
