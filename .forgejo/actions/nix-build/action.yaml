@@ -1,0 +1,18 @@
+inputs:
+  hosts:
+    default: "apple bananacreme cherry kura"
+    description: "List of target hosts to build"
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v4
+    - run: echo "hosts=${{ inputs.hosts }}" >> $FORGEJO_ENV
+    - name: set up output refs
+      run: |
+        # set up the output refs within the flake for the hosts
+        read -ra host_array <<< "$hosts"
+        mapfile -t output_refs < <(printf ".#nixosConfigurations.%s.config.system.build.toplevel " ${hosts})
+        echo "${output_refs[@]}"
+        echo "output_refs=${output_refs[@]}" >> $FORGEJO_ENV
+    - run: nix build -L --print-out-paths ${output_refs}
