@@ -6,6 +6,9 @@ jobs:
     runs-on: native
     steps:
       - uses: actions/checkout@v4
+      - name: Determine hosts
+        run: echo "BUILD_HOSTS=$(nix flake show --json | jq '.nixosConfigurations | keys | .[]' -r)" >> $FORGEJO_ENV
+      - run: echo "build list:" ${{ env.BUILD_HOSTS }}
       - uses: ./.forgejo/actions/nix-build
         with:
-          hosts: "apple kura cherry"
+          hosts: ${{ env.BUILD_HOSTS }}
