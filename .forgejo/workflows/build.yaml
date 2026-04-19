@@ -13,4 +13,4 @@ jobs:
           mapfile -t output_refs < <(printf ".#nixosConfigurations.%s.config.system.build.toplevel " ${hosts})
           echo "${output_refs[@]}"
           echo "output_refs=${output_refs[@]}" >> $FORGEJO_ENV
-      - run: nix build -L ${output_refs}
+      - run: nix build -L --print-out-paths ${output_refs}
