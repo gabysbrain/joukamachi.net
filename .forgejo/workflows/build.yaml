@@ -6,12 +6,6 @@ jobs:
     runs-on: native
     steps:
       - uses: actions/checkout@v4
-      - run: echo "hosts=apple kura cherry" >> $FORGEJO_ENV
-      - name: set up output refs
-        run: |
-          # set up the output refs within the flake for the hosts
-          read -ra host_array <<< "$hosts"
-          mapfile -t output_refs < <(printf ".#nixosConfigurations.%s.config.system.build.toplevel " ${hosts})
-          echo "${output_refs[@]}"
-          echo "output_refs=${output_refs[@]}" >> $FORGEJO_ENV
-      - run: nix build -L --print-out-paths ${output_refs}
+      - uses: ./.forgejo/actions/nix-build
+        with:
+          hosts: "apple kura cherry"
