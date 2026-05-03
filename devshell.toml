@@ -19,3 +19,11 @@ command = """\
   echo `nix eval .#nixosConfigurations --apply 'pkgs: builtins.concatStringsSep " " (builtins.attrNames pkgs)'` | xargs
   """
 help = "get a list of system targets to install"
+
+[[commands]]
+name = "cabal"
+package = "cabal-install"
+
+[[commands]]
+name = "ghc"
+package = "ghc"
