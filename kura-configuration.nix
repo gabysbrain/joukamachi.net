@@ -34,7 +34,6 @@
     ./services/syncthing.nix
     ./services/photos.nix
     ./services/taskserver.nix
-    ./services/grocy.nix
   ];
 
   boot.initrd.availableKernelModules = [
