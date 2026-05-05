@@ -1,4 +1,34 @@
 { pkgs, config, ... }:
+let defaultRunnerConfig = name: {
+  enable = true;
+  name = name;
+  url = "https://code.joukamachi.net";
+  # Obtaining the path to the runner token file may differ
+  # tokenFile should be in format TOKEN=<secret>, since it's EnvironmentFile for systemd
+  tokenFile = config.age.secrets.forgejo-runner-token.path;
+  labels = [
+    "ubuntu-latest:docker://node:16-bullseye"
+    "ubuntu-22.04:docker://node:16-bullseye"
+    "ubuntu-20.04:docker://node:16-bullseye"
+    "ubuntu-18.04:docker://node:16-buster"
+    ## optionally provide native execution on the host:
+    "native:host"
+  ];
+  hostPackages = with pkgs; [
+    bash
+    coreutils
+    curl
+    gawk
+    gitMinimal
+    gnused
+    gnumake
+    nix
+    nodejs
+    openssh
+    wget
+  ];
+};
+in
 {
   # cross-compile arch64
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
@@ -17,34 +47,7 @@
 
   services.gitea-actions-runner = {
     package = pkgs.forgejo-runner;
-    instances.default = {
-      enable = true;
-      name = "kura";
-      url = "https://code.joukamachi.net";
-      # Obtaining the path to the runner token file may differ
-      # tokenFile should be in format TOKEN=<secret>, since it's EnvironmentFile for systemd
-      tokenFile = config.age.secrets.forgejo-runner-token.path;
-      labels = [
-        "ubuntu-latest:docker://node:16-bullseye"
-        "ubuntu-22.04:docker://node:16-bullseye"
-        "ubuntu-20.04:docker://node:16-bullseye"
-        "ubuntu-18.04:docker://node:16-buster"
-        ## optionally provide native execution on the host:
-        "native:host"
-      ];
-      hostPackages = with pkgs; [
-        bash
-        coreutils
-        curl
-        gawk
-        gitMinimal
-        gnused
-        gnumake
-        nix
-        nodejs
-        openssh
-        wget
-      ];
-    };
+    instances.runner-1 = defaultRunnerConfig "kura-1";
+    instances.runner-2 = defaultRunnerConfig "kura-2";
   };
 }
