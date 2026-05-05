@@ -4,6 +4,9 @@ on:
 jobs:
   build:
     runs-on: native
+    defaults:
+      run:
+        shell: nix shell 'nixpkgs#jq'
     steps:
       - uses: actions/checkout@v4
       - name: Determine hosts
