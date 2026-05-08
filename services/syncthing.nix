@@ -13,5 +13,8 @@
       user = "tom";
     };
     guiPasswordFile = config.age.secrets.syncthing-gui-pw.path;
+
+    overrideDevices = false;
+    overrideFolders = false;
   };
 }
