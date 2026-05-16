@@ -82,10 +82,10 @@ in
       };
       blocking = {
         loading.downloads.timeout = "1m";
-        blackLists = {
+        denylists = {
           ads = [ "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts" ];
         };
-        whiteLists = {
+        allowlists = {
           ads = [ whitelistDomains ];
         };
         clientGroupsBlock = {
