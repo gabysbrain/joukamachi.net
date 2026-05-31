@@ -172,6 +172,20 @@
         '';
       };
     };
+
+    virtualHosts."zigbee.joukamachi.net" = {
+      enableACME = true;
+      forceSSL = true;
+      acmeRoot = null;
+      locations."/" = {
+        proxyPass = "http://bananacreme.joukamachi.net:8080/";
+        # needed for websockets
+        extraConfig = ''
+          proxy_set_header Upgrade ''$http_upgrade;
+          proxy_set_header Connection ''$http_connection;
+        '';
+      };
+    };
   };
 
   age.secrets.digitalocean.file = ../secrets/digitalocean.age;
