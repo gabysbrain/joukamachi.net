@@ -35,11 +35,11 @@ let
     "syncthing" = hosts.kura;
     "taskserver" = hosts.kura;
     "ttw.music" = hosts.kura;
+    "zigbee" = hosts.kura;
 
     "redis" = hosts.pumpkin;
 
     "mqtt" = hosts.bananacreme;
-    "zigbee" = hosts.bananacreme;
 
     "ns" = hosts.apple;
     "ns1" = hosts.apple;
