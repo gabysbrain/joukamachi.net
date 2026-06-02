@@ -2,7 +2,7 @@
 HOST=
 FQDN=$(HOST).joukamachi.net
 DEPLOYUSER=deploy
-DEPLOYKEY=~/keys/id_deploy
+DEPLOYKEY=$(HOME)/keys/id_deploy
 
 .PHONY: build copy switch boot deploy clean
 
