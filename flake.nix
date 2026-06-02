@@ -42,15 +42,11 @@
         ];
       };
       nixosConfigurations.apple = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+        system = "aarch64-linux";
         modules = [
           # rpi stuff
           #"${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
-          {
-            nixpkgs.config.allowUnsupportedSystem = true;
-            nixpkgs.hostPlatform.system = "aarch64-linux";
-            nixpkgs.buildPlatform.system = "x86_64-linux"; # If you build on x86 other wise changes this.
-          }
+
           # actual system stuff
           ./apple-configuration.nix
           agenix.nixosModules.default
@@ -58,31 +54,23 @@
         ];
       };
       nixosConfigurations.bananacreme = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+        system = "aarch64-linux";
         modules = [
           # rpi stuff
           #"${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
-          {
-            nixpkgs.config.allowUnsupportedSystem = true;
-            nixpkgs.hostPlatform.system = "aarch64-linux";
-            nixpkgs.buildPlatform.system = "x86_64-linux"; # If you build on x86 other wise changes this.
-          }
+
           # actual system stuff
           ./bananacreme-configuration.nix
           agenix.nixosModules.default
         ];
       };
       nixosConfigurations.cherry = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+        system = "aarch64-linux";
         modules = [
           # rpi stuff
           nixos-hardware.nixosModules.raspberry-pi-4
           #"${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
-          {
-            nixpkgs.config.allowUnsupportedSystem = true;
-            nixpkgs.hostPlatform.system = "aarch64-linux";
-            nixpkgs.buildPlatform.system = "x86_64-linux"; # If you build on x86 other wise changes this.
-          }
+
           # actual system stuff
           ./cherry-configuration.nix
           agenix.nixosModules.default
@@ -90,15 +78,11 @@
         ];
       };
       nixosConfigurations.pumpkin = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+        system = "aarch64-linux";
         modules = [
           # rpi stuff
           #"${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
-          {
-            nixpkgs.config.allowUnsupportedSystem = true;
-            nixpkgs.hostPlatform.system = "aarch64-linux";
-            nixpkgs.buildPlatform.system = "x86_64-linux"; # If you build on x86 other wise changes this.
-          }
+
           # actual system stuff
           ./pumpkin-configuration.nix
           agenix.nixosModules.default
