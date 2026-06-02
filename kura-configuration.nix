@@ -99,29 +99,29 @@
   fileSystems."/home/tom/music" = {
     device = "/music/tom";
     options = [ "bind" ];
-    fsType = "zfs";
+    fsType = "none";
   };
   fileSystems."/home/tom/home-movies" = {
     device = "/home-movies/library/tom";
     options = [ "bind" ];
-    fsType = "zfs";
+    fsType = "none";
   };
   fileSystems."/home/cagla/music" = {
     device = "/music/cagla";
     options = [ "bind" ];
-    fsType = "zfs";
+    fsType = "none";
   };
   fileSystems."/home/cagla/home-movies" = {
     device = "/home-movies/library/cagla";
     options = [ "bind" ];
-    fsType = "zfs";
+    fsType = "none";
   };
 
   # influxdb2 desperately wants to run out of /var/lib/influxdb2
   fileSystems."/var/lib/influxdb2" = {
     device = "/db/influxdb";
     options = [ "bind" ];
-    fsType = "zfs";
+    fsType = "none";
   };
 
   # Monitor zfs
