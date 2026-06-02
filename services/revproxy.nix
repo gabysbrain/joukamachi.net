@@ -194,7 +194,7 @@
     defaults = {
       email = "torsneyt@gmail.com";
       dnsProvider = "digitalocean";
-      credentialsFile = config.age.secrets.digitalocean.path;
+      environmentFile = config.age.secrets.digitalocean.path;
     };
   };
 
