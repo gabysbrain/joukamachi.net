@@ -37,6 +37,8 @@
       };
 
       storage_config.filesystem.directory = "/tmp/loki/chunks";
+
+      common.instance_interface_names = builtins.attrNames config.networking.interfaces;
     };
   };
 
