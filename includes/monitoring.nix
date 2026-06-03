@@ -56,7 +56,7 @@
           {
             name = "loki";
             host = "db.joukamachi.net";
-            port = 3030;
+            port = 3100;
           }
         ];
       };

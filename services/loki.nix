@@ -9,7 +9,7 @@
     dataDir = "/db/loki";
 
     configuration = {
-      server.http_listen_port = 3030;
+      server.http_listen_port = 3100;
       auth_enabled = false;
 
       common = {
