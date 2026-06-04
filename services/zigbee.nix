@@ -26,7 +26,10 @@
         base_topic = "zigbee2mqtt";
         server = "mqtt://mqtt.joukamachi.net:1883";
       };
-      serial.port = "/dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_148d7bf450a4ed1198918a582981d5c7-if00-port0";
+      serial = {
+        port = "/dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_148d7bf450a4ed1198918a582981d5c7-if00-port0";
+        adapter = "zstack";
+      };
       frontend.port = 8080;
       homeassistant.enabled = config.services.home-assistant.enable;
     };
