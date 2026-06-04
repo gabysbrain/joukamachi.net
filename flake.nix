@@ -8,7 +8,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     #nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    nixos-hardware.url = "github:nixos/nixos-hardware";
+    #nixos-hardware.url = "github:nixos/nixos-hardware";
 
     # secrets, shhhh
     agenix.url = "github:ryantm/agenix";
@@ -68,7 +68,7 @@
         system = "aarch64-linux";
         modules = [
           # rpi stuff
-          nixos-hardware.nixosModules.raspberry-pi-4
+          #nixos-hardware.nixosModules.raspberry-pi-4
           #"${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
 
           # actual system stuff
