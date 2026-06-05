@@ -16,7 +16,10 @@ in
     ../pkgs/restic-exporter-service.nix
   ];
 
-  age.secrets.grafana-secret.file = ../secrets/grafana-secret.age;
+  age.secrets.grafana-secret = {
+    file = ../secrets/grafana-secret.age;
+    owner = "grafana";
+  };
   services.grafana = {
     enable = true;
     settings.server = {
