@@ -9,14 +9,14 @@
     dataDir = "/db/loki";
 
     configuration = {
-      server.http_listen_port = 3030;
+      server.http_listen_port = 3100;
       auth_enabled = false;
 
       common = {
         ring = {
-          instance_addr = "127.0.0.1";
           kvstore.store = "inmemory";
         };
+        instance_addr = "127.0.0.1";
         replication_factor = 1;
         path_prefix = "/tmp/loki";
       };

@@ -41,44 +41,25 @@
     };
   };
 
-  services.promtail = {
+  # for systemd/journald logs
+  services.fluent-bit = {
     enable = true;
 
-    configuration = {
-      server = {
-        http_listen_port = 0;
-        grpc_listen_port = 0;
+    settings = {
+      pipeline = {
+        inputs = [
+          {
+            name = "systemd";
+          }
+        ];
+        outputs = [
+          {
+            name = "loki";
+            host = "db.joukamachi.net";
+            port = 3100;
+          }
+        ];
       };
-
-      positions = {
-        filename = "/tmp/positions.yaml";
-      };
-
-      clients = [
-        {
-          url = "http://db.joukamachi.net:3030/loki/api/v1/push";
-        }
-      ];
-
-      scrape_configs = [
-        {
-          job_name = "journal";
-          journal = {
-            max_age = "12h";
-            labels = {
-              job = "systemd-journal";
-              host = config.networking.hostName;
-            };
-          };
-
-          relabel_configs = [
-            {
-              source_labels = [ "__journal__systemd_unit" ];
-              target_label = "unit";
-            }
-          ];
-        }
-      ];
     };
   };
 

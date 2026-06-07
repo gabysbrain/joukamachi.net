@@ -16,6 +16,10 @@ in
     ../pkgs/restic-exporter-service.nix
   ];
 
+  age.secrets.grafana-secret = {
+    file = ../secrets/grafana-secret.age;
+    owner = "grafana";
+  };
   services.grafana = {
     enable = true;
     settings.server = {
@@ -24,6 +28,7 @@ in
       domain = "monitor.joukamachi.net";
       root_url = "https://monitor.joukamachi.net";
     };
+    settings.security.secret_key = "$__file{${config.age.secrets.grafana-secret.path}}";
   };
 
   # influxdb for timeseries data
