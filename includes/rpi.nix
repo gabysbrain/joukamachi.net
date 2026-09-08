@@ -25,7 +25,7 @@
   hardware.enableRedistributableFirmware = true;
 
   fileSystems."/" = {
-    device = "/dev/mmcblk0p2";
+    device = "/dev/disk/by-label/NIXOS_SD";
     fsType = "ext4";
   };
 
