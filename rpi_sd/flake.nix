@@ -14,7 +14,8 @@
     {
       self,
       nixos-generators,
-    }:
+      nixpkgs,
+    }@inputs:
     rec {
       nixosModules = {
         system = {
