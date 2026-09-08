@@ -3,7 +3,7 @@
 
   inputs = {
     #nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -22,7 +22,7 @@
             #"profiles/base.nix"
           ];
 
-          system.stateVersion = "23.11";
+          system.stateVersion = "26.05";
         };
       };
 
