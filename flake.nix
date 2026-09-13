@@ -77,6 +77,17 @@
           adblock-unbound.nixosModules.default
         ];
       };
+      nixosConfigurations.peach = nixpkgs.lib.nixosSystem {
+        system = "aarch64-linux";
+        modules = [
+          # rpi stuff
+          #"${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+
+          # actual system stuff
+          ./peach-configuration.nix
+          agenix.nixosModules.default
+        ];
+      };
       nixosConfigurations.pumpkin = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
         modules = [
