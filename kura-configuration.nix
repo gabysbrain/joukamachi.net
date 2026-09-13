@@ -65,6 +65,20 @@
     { device = "/dev/disk/by-label/swap"; }
   ];
 
+  # spin down drives
+  # see https://wiki.nixos.org/wiki/Power_Management
+  services.udev.extraRules = 
+  let
+    mkRule = as: lib.concatStringsSep ", " as;
+    mkRules = rs: lib.concatStringsSep "\n" rs;
+  in mkRules ([( mkRule [
+    ''ACTION=="add|change"''
+    ''SUBSYSTEM=="block"''
+    ''KERNEL=="sd[a-z]"''
+    ''ATTR{queue/rotational}=="1"''
+    ''RUN+="${pkgs.hdparm}/bin/hdparm -B 90 -S 41 /dev/%k"''
+  ])]);
+
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
