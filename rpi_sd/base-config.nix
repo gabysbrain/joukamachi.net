@@ -5,7 +5,6 @@
 
 {
   hardware.enableRedistributableFirmware = true;
-  sdImage.compressImage = false;
 
   #fileSystems = {
   #"/" = {

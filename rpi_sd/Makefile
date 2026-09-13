@@ -1,10 +1,10 @@
 
-.PHONY: sd vm
+.PHONY: sd vm variants
 
-IMG_NAME = .\#packages.aarch64-linux.sdcard
+FLAKE = .\#newpi
 
 sd:
-	nix build $(IMG_NAME)
+	nixos-rebuild build-image --flake "$(FLAKE)" --image-variant sd-card
 
 vm:
-	nixos-rebuild build-vm --flake "$(IMG_NAME)"
+	nixos-rebuild build-vm --flake "$(FLAKE)"
